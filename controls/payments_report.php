@@ -36,8 +36,8 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 	<div id="header">
 		<ul id="reportInfo">
 			<li class="title">Invoices report</li>
-			<li>Issue date: <span><?php echo date("Y-m-d"); ?></span></li>
-			<li>Invoice issue :
+			<li>Date issued: <span><?php echo date("Y-m-d"); ?></span></li>
+			<li>Invoices period:
 				<span>
 					<?php
 						if(!empty($data['dateFrom'])) {

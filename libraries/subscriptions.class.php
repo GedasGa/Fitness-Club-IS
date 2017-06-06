@@ -282,7 +282,7 @@ class subscriptions {
 			}
 		}
 
-		$query = "  SELECT  SUM(`SUBSCRIPTION`.`price`) as `suma`
+		$query = "  SELECT  SUM(`SUBSCRIPTION`.`price`) as `total_amount`
 					FROM `SUBSCRIPTION`
 						LEFT JOIN `types`
 							ON `SUBSCRIPTION`.`type`=`types`.`id_type`

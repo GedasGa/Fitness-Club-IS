@@ -150,11 +150,9 @@ class visits {
 		$query = "  SELECT `VISIT`.`id_visit`,
 						   `VISIT`.`visit_date`,
 						   `VISIT`.`time`,
-						   `CUSTOMER`.`name`,
-						   `CUSTOMER`.`surname`,
-						   `CUSTOMER`.`name`,
-						   `CUSTOMER`.`surname`,
-						   `FITNESS_CLUB`.`name`
+						   `CUSTOMER`.`name` AS `name`,
+						   `CUSTOMER`.`surname` AS `surname`,
+						   `FITNESS_CLUB`.`name` AS `fitness_club`
 					FROM `VISIT`
 						INNER JOIN `CUSTOMER`
 							ON `VISIT`.`fk_customer_id`=`CUSTOMER`.`personal_id`

@@ -36,8 +36,8 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 	<div id="header">
 		<ul id="reportInfo">
 			<li class="title">Vists report</li>
-			<li>Sudarymo data: <span><?php echo date("Y-m-d"); ?></span></li>
-			<li>Apsilankymų laikotarpis:
+			<li>Date issued: <span><?php echo date("Y-m-d"); ?></span></li>
+			<li>Visits period:
 				<span>
 					<?php
 						if(!empty($data['dateFrom'])) {
