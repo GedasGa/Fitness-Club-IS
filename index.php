@@ -1,42 +1,42 @@
 <?php
-	// nuskaitome konfigūracijų failą
+	// reading configuration file
 	include 'config.php';
 
 	// iškviečiame prisijungimo prie duomenų bazės klasę
 	include 'utils/mysql.class.php';
 
-	// nustatome pasirinktą modulį
+	// set selected module
 	$module = '';
 	if(isset($_GET['module'])) {
 		$module = mysql::escape($_GET['module']);
 	}
 
-	// jeigu pasirinktas elementas (sutartis, automobilis ir kt.), nustatome elemento id
+	// set selected element id
 	$id = '';
 	if(isset($_GET['id'])) {
 		$id = mysql::escape($_GET['id']);
 	}
 
-	// nustatome, ar kuriamas naujas elementas
+	// checking if it is new element which we want to create
 	$action = '';
 	if(isset($_GET['action'])) {
 		$action = mysql::escape($_GET['action']);
 	}
 
-	// jeigu šalinamas elementas, nustatome šalinamo elemento id
+	// if element is going to be deleted, set its id
 	$removeId = 0;
 	if(!empty($_GET['remove'])) {
-		// paruošiame $_GET masyvo id reikšmę SQL užklausai
+		// set $_GET array id value for SQL query
 		$removeId = mysql::escape($_GET['remove']);
 	}
 
-	// nustatome elementų sąrašo puslapio numerį
+	// set elements list page number
 	$pageId = 1;
 	if(!empty($_GET['page'])) {
 		$pageId = mysql::escape($_GET['page']);
 	}
 
-	// nustatome, kiek įrašų rodysime elementų sąraše
+	// set, how many records will be showed in elements list
 	define('NUMBER_OF_ROWS_IN_PAGE', 10);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

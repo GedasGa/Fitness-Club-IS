@@ -6,51 +6,51 @@
 	$formErrors = null;
 	$fields = array();
 
-	// nustatome privalomus laukus
+	// set required fields
 	$required = array('city');
 
-	// maksimalūs leidžiami laukų ilgiai
+	// set maximum length for fields
 	$maxLengths = array (
 		'city' => 20
 	);
 
-	// paspaustas išsaugojimo mygtukas
+	// pressed submit button
 	if(!empty($_POST['submit'])) {
-		// nustatome laukų validatorių tipus
+		// set field validator type
 		$validations = array (
 			'city' => 'words'
 		);
 
-		// sukuriame validatoriaus objektą
+		// creating validator object
 		include 'utils/validator.class.php';
 		$validator = new validator($validations, $required, $maxLengths);
 
 		if($validator->validate($_POST)) {
-			// suformuojame laukų reikšmių masyvą SQL užklausai
+			// creating field array of data for SQL query
 			$data = $validator->preparePostFieldsForSQL();
 			if(isset($data['id_city'])) {
-				// atnaujiname duomenis
+				// updating data
 				$cityObj->updateCity($data);
 			} else {
-				// randame didžiausią miesto id duomenų bazėje
+				// finding City max id value in Database
 				$latestId = $cityObj->getMaxIdOfCity();
 
-				// įrašome naują įrašą
+				// inserting new record
 				$data['id_city'] = $latestId + 1;
 				$cityObj->insertCity($data);
 			}
 
-			// nukreipiame į miestų puslapį
+			// redirecting to City page
 			header("Location: index.php?module={$module}");
 			die();
 		} else {
-			// gauname klaidų pranešimą
+			// getting error notification
 			$formErrors = $validator->getErrorHTML();
-			// gauname įvestus laukus
+			// getting filled in fields
 			$fields = $_POST;
 		}
 	} else {
-		// tikriname, ar nurodytas elemento id. Jeigu taip, išrenkame elemento duomenis ir jais užpildome formos laukus.
+		// checking if is selected element id. If yes, getting element data and filled in all fields with that data
 		if(!empty($id)) {
 			$fields = $cityObj->getCity($id);
 		}

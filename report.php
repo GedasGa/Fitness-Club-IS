@@ -1,16 +1,16 @@
 <?php
-	// nuskaitome konfigūracijų failą
+	// reading configuration file
 	include 'config.php';
 
-	// iškviečiame prisijungimo prie duomenų bazės klasę
+	// include login to database class
 	include 'utils/mysql.class.php';
 
-	// nustatome pasirinktos ataskaitos id
+	// set selected report id
 	$id = '';
 	if(isset($_GET['id'])) {
 		$id = mysql::escape($_GET['id']);
 	}
-	
+
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

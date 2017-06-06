@@ -1,6 +1,6 @@
 <?php
 /**
- * Pork Formvalidator. validates fields by regexes and can sanatize them. Uses PHP filter_var built-in functions and extra regexes 
+ * Pork Formvalidator. validates fields by regexes and can sanatize them. Uses PHP filter_var built-in functions and extra regexes
  * @package pork
  */
 
@@ -8,7 +8,7 @@
 /**
  * Pork.FormValidator
  * Validates arrays or properties by setting up simple arrays
- * 
+ *
  * @package pork
  * @author SchizoDuckie
  * @copyright SchizoDuckie 2009
@@ -35,11 +35,11 @@ class validator
 		 * ip,
 		 * url*/
     );
-	
+
     private $validations, $mandatories, $lengths, $errors, $corrects, $fields;
 
 	/**
-	 * Konstruktorius
+	 * Constructor
 	 * @param type $validations
 	 * @param type $mandatories
 	 */
@@ -52,7 +52,7 @@ class validator
     }
 
     /**
-	 * Patikrinamas reikšių masyvas
+	 * Validating data array
 	 * @param type $items
 	 * @return type
 	 */
@@ -90,14 +90,14 @@ class validator
 
     	return(!$havefailures);
     }
-	
+
 	private function validateArray($array, $key) {
 		$havefailures = false;
 		if((key_exists($key, $this->validations) === false) && array_search($key, $this->mandatories) === false) {
 			$this->corrects[] = $key;
 			return false;
 		}
-		
+
 		foreach($array as $item) {
 			$result = false;
 			if($item == "" && array_search($key, $this->mandatories) === false) {
@@ -111,16 +111,16 @@ class validator
 				$this->addError($key, $this->validations[$key]);
 			}
 		}
-		
+
 		if($havefailures == false) {
 			$this->corrects[] = $key;
 		}
-		
+
 		return !$havefailures;
 	}
-	
+
     /**
-	 * Gaunamas klaidos pranešimas
+	 * Error notification
 	 * @return type
 	 */
     public function getErrorHTML() {
@@ -131,12 +131,12 @@ class validator
 			}
     		$output = "<ul>" . implode('', $errors) . "</ul>";
     	}
-    	
+
     	return($output);
     }
 
 	/**
-	 * Į klaidų masyvą įtraukiama klaida
+	 * Adding error to error list
 	 * @param type $field
 	 * @param type $type
 	 */
@@ -145,7 +145,7 @@ class validator
     }
 
     /**
-	 * Pagal nurodytą tipą patikrinama viena reikšmė
+	 * Pagal nurodytą tipą patikrinama viena reikšmė. by selected type, one value is checked
 	 * @param type $var
 	 * @param type $type
 	 * @return type
@@ -159,7 +159,7 @@ class validator
     	switch($type) {
     		case 'email':
     			$var = substr($var, 0, 254);
-    			$filter = FILTER_VALIDATE_EMAIL;	
+    			$filter = FILTER_VALIDATE_EMAIL;
     		break;
     		case 'int':
     			$filter = FILTER_VALIDATE_INT;
@@ -192,7 +192,7 @@ class validator
 					$tmp[] = mysql::escape($val2);
 				}
 			}
-			
+
 			if(!in_array($key, $this->mandatories) && ($tmp == '' || $tmp == array())) {
 				$data[$key] = '';
 			} else {
@@ -201,13 +201,13 @@ class validator
 				} else {
 					$data[$key] = $tmp;
 				}
-				
+
 			}
 		}
 
 		return $data;
 	}
-	
+
 }
 
 ?>

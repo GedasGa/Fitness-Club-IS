@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Sąskaitų redagavimo klasė
+ * Invoice editing class
  *
  * @author Gedas_Gardauskas
  */
@@ -13,7 +13,7 @@ class payments {
 	}
 
 	/**
-	 * Sąskaitos išrinkimas
+	 * Finding Invoice by id
 	 * @param type $id
 	 * @return type
 	 */
@@ -27,7 +27,7 @@ class payments {
 	}
 
 	/**
-	 * Sąskaitų sąrašo išrinkimas
+	 * Finding Invoice list
 	 * @param type $limit
 	 * @param type $offset
 	 * @return type
@@ -65,7 +65,7 @@ class payments {
 	}
 
 	/**
-	 * Sąskaitų kiekio radimas
+	 * Finding Invoice list count
 	 * @return type
 	 */
 	public function getPaymentListCount() {
@@ -83,7 +83,7 @@ class payments {
 	}
 
 	/**
-	 * Sąskaitos šalinimas
+	 * Deleting Invoice by id
 	 * @param type $id
 	 */
 	public function deletePayment($id) {
@@ -94,7 +94,7 @@ class payments {
 
 
 	/**
-	 * Sąskaitos atnaujinimas
+	 * Updating Invoice
 	 * @param type $data
 	*/
 	public function updatePayment($data) {
@@ -107,7 +107,7 @@ class payments {
 	}
 
 	/**
-	 * Sąskaitos įrašymas
+	 * Insterting new Invoice
 	 * @param type $data
 	 */
 	public function insertPayment($data) {
@@ -132,7 +132,7 @@ class payments {
 
 
 	/**
-	 * Didžiausios mokejimo idreikšmės radimas
+	 * Finding Invoice max id
 	 * @return type
 	 */
 	public function getMaxIdOfPayment() {
@@ -145,7 +145,7 @@ class payments {
 
 
 	/**
-	 * Sąskaitos išrinkimas
+	 * Finding Invoice
 	 * @param type $id
 	 * @return type
 	 */
@@ -192,7 +192,7 @@ class payments {
 
 	///////////////////////////////////////////////////////////
 	/**
-	 * Saskaitos išrinkimas
+	 * Finding Invoice by id
 	 * @param type $id
 	 * @return type
 	 */
@@ -224,7 +224,7 @@ class payments {
 	}
 
 	/**
-	 * Saskaitos sąrašo išrinkimas
+	 * Finding Invoice list
 	 * @param type $id
 	 * @return type
 	 */
@@ -262,7 +262,7 @@ class payments {
 
 
 	/**
-	 * Sąskaitų kiekio radimas
+	 * Finding Invoice count
 	 * @return type
 	 */
 	public function getAccountListCount() {
@@ -280,7 +280,7 @@ class payments {
 	}
 
 	/**
-	 * Sąskaitų šalinimas
+	 * Deleting Invoice by id
 	 * @param type $id
 	 */
 	public function deleteAccount($id) {
@@ -291,7 +291,7 @@ class payments {
 
 
 	/**
-	 * Sąskaitų atnaujinimas
+	 * Updating Invoice by id
 	 * @param type $data
 	*/
 	public function updateAccount($data) {
@@ -305,7 +305,7 @@ class payments {
 	}
 
 	/**
-	 * Sąskaitų įrašymas
+	 * Inserting new Invoice
 	 * @param type $data
 	 */
 	public function insertAccount($data) {

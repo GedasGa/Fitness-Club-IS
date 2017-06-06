@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Sporto klubų readagavimo klasė
+ * Fitness Club editing class
  *
  * @author Gedas_Gardauskas
  */
@@ -12,7 +12,7 @@ class gyms {
 
 	}
 	/**
-	 * Sporto klubo išrinkimas
+	 * Finding Fitness Club by id
 	 * @param type $id
 	 * @return type
 	 */
@@ -26,7 +26,7 @@ class gyms {
 	}
 
 	/**
-	 * Sporto klubų sąrašo išrinkimas
+	 * Finding Fitness Clubs list
 	 * @param type $limit
 	 * @param type $offset
 	 * @return type
@@ -58,7 +58,7 @@ class gyms {
 	}
 
 	/**
-	 * Sporto klubų kiekio radimas
+	 * Finding Fitness Clubs list count
 	 * @return type
 	 */
 	public function getGymListCount() {
@@ -74,7 +74,7 @@ class gyms {
 	}
 
 	/**
-	 * Sporto klubų šalinimas
+	 * Deleting Fitness Club by id
 	 * @param type $id
 	 */
 	public function deleteGym($id) {
@@ -84,7 +84,7 @@ class gyms {
 	}
 
 	/**
-	 * Markės atnaujinimas
+	 * Updating Fitness Club data
 	 * @param type $data
 	*/
 	public function updateGym($data) {
@@ -96,7 +96,7 @@ class gyms {
 	}
 
 	/**
-	 * Sporto klubo įrašymas
+	 * Inserting new Fitness Club
 	 * @param type $data
 	*/
 	public function insertGym($data) {
@@ -118,7 +118,7 @@ class gyms {
 	}
 
 	/**
-	 * Didžiausias sporto klubo id reikšmės radimas
+	 * Finding Fitness Club max id
 	 * @return type
 	 */
 	public function getMaxIdOfGym() {
@@ -130,7 +130,7 @@ class gyms {
 	}
 
 	/**
-	 * Sporto klubo darbuotojų kiekio radimas
+	 * Finding Fitness Clubs employees count
 	 * @param type $id
 	 * @return type
 	 */
@@ -147,7 +147,7 @@ class gyms {
 
 	/////////////////////////////////////////////////////////////////
 	/**
-	 * Adresų išrinkimas
+	 * Finding Address by id
 	 * @param type $id
 	 * @return type
 	 */
@@ -161,7 +161,7 @@ class gyms {
 	}
 
 	/**
-	 * Adreso šalinimas
+	 * Deleting address
 	 * @param type $id
 	 */
 	public function deleteAddress($id) {
@@ -171,7 +171,7 @@ class gyms {
 	}
 
 	/**
-	 * Adreso atnaujinimas
+	 * Updating Address
 	 * @param type $data
 	*/
 	public function updateAddress($data) {
@@ -185,7 +185,7 @@ class gyms {
 	}
 
 	/**
-	 * Adreso įrašymas
+	 * Inserting Address
 	 * @param type $data
 	*/
 	public function insertAddress($data) {
@@ -209,7 +209,7 @@ class gyms {
 	}
 
 	/**
-	 * Didžiausias adreso reikšmės radimas
+	 * Finding Address latest value by id
 	 * @return type
 	 */
 	public function getMaxIdOfAddress() {
@@ -221,7 +221,7 @@ class gyms {
 	}
 	/////////////////////////////////////////////////////////////////
 	/**
-	 * -- sąrašo radimas
+	 * -- Finding List
 	 * @param type $serviceId
 	 * @return type
 	 */
@@ -235,7 +235,7 @@ class gyms {
 	}
 
 	/**
-	 * Darbo laiko šalinimas
+	 * Deleting Working Hours by id
 	 * @param type $id
 	 */
 	public function deleteScheduleHours($id) {
@@ -271,7 +271,7 @@ class gyms {
 	}
 
 		/**
-	 * Didžiausios apsilankymo id reikšmės radimas
+	 * Finding Working Hours latest value by id
 	 * @return type
 	 */
 	public function getMaxIdOfHours() {
