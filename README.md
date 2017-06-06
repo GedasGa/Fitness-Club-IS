@@ -1,2 +1,2 @@
 # FitnessClubIS
-Information system of a Fitness Club + database ER model
+Information system of a Fitness Club + database SQL and ER model
