@@ -77,7 +77,7 @@
 			<p>
 				<label class="field" for="city">Name<?php echo in_array('city', $required) ? '<span> *</span>' : ''; ?></label>
 				<input type="text" id="city" name="city" class="textbox-255" value="<?php echo isset($fields['city']) ? $fields['city'] : ''; ?>">
-				<?php if(key_exists('city', $maxLengths)) echo "<span class='max-len'>(iki {$maxLengths['city']} simb.)</span>"; ?>
+				<?php if(key_exists('city', $maxLengths)) echo "<span class='max-len'>(max {$maxLengths['city']} symb.)</span>"; ?>
 			</p>
 		</fieldset>
 		<p class="required-note">* please, fill in all the blanks</p>

@@ -174,9 +174,9 @@
 
 			<div class="childRowContainer">
 				<div class="labelLeft<?php if(empty($hoursFields) || sizeof($hoursFields) == 0) echo ' hidden'; ?>">Weekday</div>
-				<div class="labelRight<?php if(empty($hoursFields) || sizeof($hoursFields) == 0) echo ' hidden'; ?>">Open from</div>
+				<div class="labelLeft<?php if(empty($hoursFields) || sizeof($hoursFields) == 0) echo ' hidden'; ?>">Open from</div>
 				<div class="float-clear"></div>
-				<div class="labelRight<?php if(empty($hoursFields) || sizeof($hoursFields) == 0) echo ' hidden'; ?>">- till</div>
+				<div class="labelLeft<?php if(empty($hoursFields) || sizeof($hoursFields) == 0) echo ' hidden'; ?>">- till</div>
 				<div class="float-clear"></div>
 				<?php
 					if(empty($hoursFields) || sizeof($hoursFields) == 0) {

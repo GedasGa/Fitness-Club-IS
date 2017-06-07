@@ -126,7 +126,7 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 							</tr>
 
 							<tr class="aggregate">
-							<td class="label" colspan="3">Suma:</td>
+							<td class="label" colspan="3">Total amount:</td>
 							<td class="border"><?php echo $AccountSumData[0]['invoices_amount']; ?> &euro;</td>
 							<td class="border">
 								<?php

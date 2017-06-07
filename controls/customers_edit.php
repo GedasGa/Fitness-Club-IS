@@ -90,7 +90,7 @@
 					<label class="field" for="personal_id">Personal ID<?php echo in_array('personal_id', $required) ? '<span> *</span>' : ''; ?></label>
 					<?php if(!isset($fields['editing'])) { ?>
 						<input type="text" id="personal_id" name="personal_id" class="textbox-150" value="<?php echo isset($fields['personal_id']) ? $fields['personal_id'] : ''; ?>" />
-						<?php if(key_exists('personal_id', $maxLengths)) echo "<span class='max-len'>(iki {$maxLengths['personal_id']} simb.)</span>"; ?>
+						<?php if(key_exists('personal_id', $maxLengths)) echo "<span class='max-len'>(max {$maxLengths['personal_id']} symb.)</span>"; ?>
 					<?php } else { ?>
 						<span class="input-value"><?php echo $fields['personal_id']; ?></span>
 						<input type="hidden" name="editing" value="1" />
@@ -100,12 +100,12 @@
 				<p>
 					<label class="field" for="name">Name<?php echo in_array('name', $required) ? '<span> *</span>' : ''; ?></label>
 					<input type="text" id="name" name="name" class="textbox-150" value="<?php echo isset($fields['name']) ? $fields['name'] : ''; ?>" />
-					<?php if(key_exists('name', $maxLengths)) echo "<span class='max-len'>(iki {$maxLengths['name']} simb.)</span>"; ?>
+					<?php if(key_exists('name', $maxLengths)) echo "<span class='max-len'>(max {$maxLengths['name']} symb.)</span>"; ?>
 				</p>
 				<p>
 					<label class="field" for="surname">Surname<?php echo in_array('surname', $required) ? '<span> *</span>' : ''; ?></label>
 					<input type="text" id="surname" name="surname" class="textbox-150" value="<?php echo isset($fields['surname']) ? $fields['surname'] : ''; ?>" />
-					<?php if(key_exists('surname', $maxLengths)) echo "<span class='max-len'>(iki {$maxLengths['surname']} simb.)</span>"; ?>
+					<?php if(key_exists('surname', $maxLengths)) echo "<span class='max-len'>(max {$maxLengths['surname']} symb.)</span>"; ?>
 				</p>
 				<p>
 					<label class="field" for="phone_number">Phone Number.<?php echo in_array('phone_number', $required) ? '<span> *</span>' : ''; ?></label>

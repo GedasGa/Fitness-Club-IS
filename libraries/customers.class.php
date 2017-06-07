@@ -1,7 +1,7 @@
 <?php
 
 /**
- * customers editing class
+ * Customers editing class
  *
  * @author Gedas_Gardauskas
  */

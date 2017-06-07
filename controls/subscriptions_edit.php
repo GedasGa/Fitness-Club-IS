@@ -176,7 +176,6 @@
 
 				<?php
 					} else {
-						var_dump($hoursFields);
 						foreach($hoursFields as $key => $val) {
 				?>
                                     <div class="childRow">

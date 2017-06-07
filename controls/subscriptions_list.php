@@ -78,5 +78,8 @@
 		}
 	?>
 </table>
-// including pages template
-<?php include 'controls/paging.php'; ?>
+
+<?php 
+//including pages template
+	include 'controls/paging.php';
+?>
