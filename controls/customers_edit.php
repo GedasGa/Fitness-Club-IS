@@ -20,7 +20,7 @@
 	if(!empty($_POST['submit'])) {
 		include 'utils/validator.class.php';
 
-		// set field validator type
+		// set field validators types
 		$validations = array (
 			'personal_id' => 'positivenumber',
 			'name' => 'alfanum',
@@ -55,7 +55,7 @@
 			// getting error notification
 			$formErrors = $validator->getErrorHTML();
 
-			// getting filled insterted information into fields
+			// getting all information filled into fields
 			$fields = $_POST;
 		}
 	}	else {

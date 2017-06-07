@@ -11,7 +11,7 @@
 	if(!empty($_POST['submit'])) {
 		$formSubmitted = true;
 
-		// set field validator type
+		// set field validators types
 		$validations = array (
 			'dateFrom' => 'date',
 			'dateTill' => 'date');
@@ -27,7 +27,7 @@
 		} else {
 			// getting error notification
 			$formErrors = $validator->getErrorHTML();
-			// getting filled insterted information into fields
+			// getting all information filled into fields
 			$fields = $_POST;
 		}
 	}

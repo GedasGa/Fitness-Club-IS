@@ -36,7 +36,7 @@
 
 <?php if(isset($_GET['remove_error'])) { ?>
 	<div class="errorBox">
-		Cannot delete subscription, because it has issued invoice. First delete invoice. 
+		Cannot delete subscription, because it has issued invoice. First delete invoice.
 	</div>
 <?php } ?>
 
@@ -51,16 +51,16 @@
 		<th></th>
 	</tr>
 	<?php
-		// suskaičiuojame bendrą įrašų kiekį
+		// counting sum of records
 		$elementCount = $subscrioptionsObj->getSubscriptionListCount();
 
-		// suformuojame sąrašo puslapius
+		// generating list pages
 		$paging->process($elementCount, $pageId);
 
-		// išrenkame nurodyto puslapio sutartis
+		// electing selected page Subscriptions
 		$data = $subscrioptionsObj->getSubscriptionList($paging->size, $paging->first);
 
-		// suformuojame lentelę
+		// generating table
 		foreach($data as $key => $val) {
 			echo
 				"<tr>"
@@ -78,5 +78,5 @@
 		}
 	?>
 </table>
-
+// including pages template
 <?php include 'controls/paging.php'; ?>

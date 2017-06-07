@@ -28,7 +28,7 @@
 	        }
 	    }
 
-		// set field validator type
+		// set field validators types
 		$validations = array (
 			'number' => 'positivenumber',
 			'invoice_date' => 'date',
@@ -90,7 +90,7 @@
 			// getting error notification
 			$formErrors = $validator->getErrorHTML();
 
-			// getting filled insterted information into fields
+			// getting all information filled into fields
 			$fields = $_POST;
 		}
 		} elseif (!empty($_GET['action']) && !empty($_GET['sid']) && is_numeric($_GET['sid']) && !is_float($_GET['sid'])) {

@@ -20,20 +20,13 @@ class validator
     public $regexes = Array(
 		'date' => "^[0-9]{4}[-/][0-9]{1,2}[-/][0-9]{1,2}\$", // 2016-01-15
 		'datetime' => "^[0-9]{4}[-/][0-9]{1,2}[-/][0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}(:[0-9]{1,2})?\$", // 2016-01-15 12:12, 2016-01-15 12:12:00
-		'positivenumber' => "^[0-9\.]+\$", // teigiami sveikieji skaičiai bei skaičiai su kableliu (pvz.: 25.14)
-		'price' => "^([1-9][0-9]*|0)(\.[0-9]{2})?\$", // kaina (pvz.: 25.99)
-		'anything' => "^[\d\D]{1,}\$", // bet koks simbolis
-		'alfanum' => "^[0-9a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ ,.-_\\s\?\!]+\$", // tekstas
-		'not_empty' => "[a-z0-9A-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+", // bet kokia reikšmė, kuri prasideda raide arba skaitmeniu
-		'words' => "^[A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ]+[A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ \\s]*\$", // žodžiai
-		'phone' => "^[0-9]{9,14}\$" // telefonas (pvz.: 860000000)
-		/* BE ŠIŲ FORMATŲ DAR GALIMA NAUDOTI STANDARTINIUS:
-		 * email,
-		 * int,
-		 * float,
-		 * boolen,
-		 * ip,
-		 * url*/
+		'positivenumber' => "^[0-9\.]+\$", // positive and double numbers (e.g.: 25.14)
+		'price' => "^([1-9][0-9]*|0)(\.[0-9]{2})?\$", // price (e.g: 25.99)
+		'anything' => "^[\d\D]{1,}\$", // any symbol
+		'alfanum' => "^[0-9a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ ,.-_\\s\?\!]+\$", // text
+		'not_empty' => "[a-z0-9A-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+", // any kind of value
+		'words' => "^[A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ]+[A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ \\s]*\$", // words
+		'phone' => "^[0-9]{9,14}\$" // phone number (e.g.: 860000000)
     );
 
     private $validations, $mandatories, $lengths, $errors, $corrects, $fields;
@@ -145,7 +138,7 @@ class validator
     }
 
     /**
-	 * Pagal nurodytą tipą patikrinama viena reikšmė. by selected type, one value is checked
+	 * by selected type, one value is checked
 	 * @param type $var
 	 * @param type $type
 	 * @return type

@@ -16,7 +16,7 @@
 
 	// pressed submit button
 	if(!empty($_POST['submit'])) {
-		// set field validator type
+		// set field validators types
 		$validations = array (
 			'city' => 'words'
 		);
@@ -46,7 +46,7 @@
 		} else {
 			// getting error notification
 			$formErrors = $validator->getErrorHTML();
-			// getting filled in fields
+			// getting all information filled into fields
 			$fields = $_POST;
 		}
 	} else {
