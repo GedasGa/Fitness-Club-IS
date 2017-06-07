@@ -11,23 +11,23 @@
 	if(!empty($_POST['submit'])) {
 		$formSubmitted = true;
 
-		// nustatome laukų validatorių tipus
+		// set field validators types
 		$validations = array (
 			'dateFrom' => 'date',
 			'dateTill' => 'date');
 
-		// sukuriame validatoriaus objektą
+		// creating validator object
 		include 'utils/validator.class.php';
 		$validator = new validator($validations);
 
 
 		if($validator->validate($_POST)) {
-			// suformuojame laukų reikšmių masyvą SQL užklausai
+			// creating field array of data for SQL query
 			$data = $validator->preparePostFieldsForSQL();
 		} else {
-			// gauname klaidų pranešimą
+			// getting error notification
 			$formErrors = $validator->getErrorHTML();
-			// gauname įvestus laukus
+			// getting all information filled into fields
 			$fields = $_POST;
 		}
 	}
@@ -36,8 +36,8 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 	<div id="header">
 		<ul id="reportInfo">
 			<li class="title">Vists report</li>
-			<li>Date issued: <span><?php echo date("Y-m-d"); ?></span></li>
-			<li>Visits period:
+			<li>Date Issued: <span><?php echo date("Y-m-d"); ?></span></li>
+			<li>Visits Period:
 				<span>
 					<?php
 						if(!empty($data['dateFrom'])) {
@@ -67,7 +67,7 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 				<div id="formContainer">
 					<?php if($formErrors != null) { ?>
 						<div class="errorBox">
-							Neįvesti arba neteisingai įvesti šie laukai:
+							Fill in all required fields in right format:
 							<?php
 								echo $formErrors;
 							?>
@@ -83,7 +83,7 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 					</form>
 				</div>
 	<?php	} else {
-					// išrenkame ataskaitos duomenis
+					// electing all Visits
 					$visitsReportData = $visitsObj->getVisitsReport($data['dateFrom'], $data['dateTill']);
 					$visitsReportCount = $visitsObj->getCountOfVisitsReport($data['dateFrom'], $data['dateTill']);
 

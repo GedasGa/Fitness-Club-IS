@@ -1,27 +1,27 @@
 <?php
 
-	// sukuriame klientų klasės objektą
+	// creating Customer class object
 	include 'libraries/customers.class.php';
 	$customersObj = new customers();
 
-	// sukuriame puslapiavimo klasės objektą
+	// creating paging class object
 	include 'utils/paging.class.php';
 	$paging = new paging(NUMBER_OF_ROWS_IN_PAGE);
 
 	if(!empty($removeId)) {
-		// patikriname, ar klientas neturi abonemento
+		// checking if Customer does not have subscription
 		$count = $customersObj->getSubscriptionsCountOfCustomer($removeId);
 
 		$removeErrorParameter = '';
 		if($count == 0) {
-			// šaliname klientą
+			// deleting customer
 			$customersObj->deleteCustomer($removeId);
 		} else {
-			// nepašalinome, nes klientas sudaręs bent vieną sutartį, rodome klaidos pranešimą
+			// cannot delete because Customer is assigned to subscription, error notification
 			$removeErrorParameter = '&remove_error=1';
 		}
 
-		// nukreipiame į klientų puslapį
+		// redirecting to Customers page
 		header("Location: index.php?module={$module}{$removeErrorParameter}");
 		die();
 	}
@@ -54,16 +54,16 @@
 		<th></th>
 	</tr>
 	<?php
-		// suskaičiuojame bendrą įrašų kiekį
+		// counting sum of records
 		$elementCount = $customersObj->getCustomersListCount();
 
-		// suformuojame sąrašo puslapius
+		// generating list pages
 		$paging->process($elementCount, $pageId);
 
-		// išrenkame nurodyto puslapio klientus
+		// electing selected page Customers
 		$data = $customersObj->getCustomersList($paging->size, $paging->first);
 
-		// suformuojame lentelę
+		// generating table
 		foreach($data as $key => $val) {
 			echo
 				"<tr>"
@@ -85,6 +85,6 @@
 </table>
 
 <?php
-	// įtraukiame puslapių šabloną
+	// including pages template
 	include 'controls/paging.php';
 ?>

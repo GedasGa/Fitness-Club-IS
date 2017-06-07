@@ -1,19 +1,19 @@
 <?php
 
-	// sukuriame sutarčių klasės objektą
+	// creating Visit class object
 	include 'libraries/visits.class.php';
 	$visitsObj = new visits();
 
-	// sukuriame puslapiavimo klasės objektą
+	// creating paging class object
 	include 'utils/paging.class.php';
 	$paging = new paging(NUMBER_OF_ROWS_IN_PAGE);
 
 	if(!empty($removeId)) {
 
-		// šaliname apsilankymą
+		// deleting Visit
 		$visitsObj->deleteVisit($removeId);
 
-		// nukreipiame į sutarčių puslapį
+		// redirecting to Visits page
 		header("Location: index.php?module={$module}");
 		die();
 	}
@@ -38,16 +38,16 @@
 		<th></th>
 	</tr>
 	<?php
-		// suskaičiuojame bendrą įrašų kiekį
+		// counting sum of records
 		$elementCount = $visitsObj->getVisitListCount();
 
-		// suformuojame sąrašo puslapius
+		// generating list pages
 		$paging->process($elementCount, $pageId);
 
-		// išrenkame nurodyto puslapio sutartis
+		// electing selected page Visists
 		$data = $visitsObj->getVisitList($paging->size, $paging->first);
 
-		// suformuojame lentelę
+		// generating table
 		foreach($data as $key => $val) {
 			echo
 				"<tr>"
@@ -64,5 +64,5 @@
 		}
 	?>
 </table>
-
+// including pages template
 <?php include 'controls/paging.php'; ?>

@@ -1,57 +1,57 @@
 $(window).ready(function (){
-    
+
     $(".addChild").click(function() {
-        // pagrindinis vaikinių įrašų konteineris
+        // Child row container
         childRowContainer = $(this).parent().prev(".childRowContainer");
-        
-        if(childRowContainer.children(".childRow:last").hasClass("hidden")) { // jeigu nėra nei vienos eilutės
-            // pašaliname paslėptos eilutės požymius
+
+        if(childRowContainer.children(".childRow:last").hasClass("hidden")) { // no row exist
+            // remove hidden row signs
             childRowContainer.children(".childRow:last, .labelLeft, .labelRight").removeClass("hidden");
             childRowContainer.children(".childRow:last").children("input[type=text], select").prop("disabled", false);
         } else {
-            // klonuojame vaikinio įrašo eilutę
+            // cloning child record row
             rowClone = childRowContainer.children(".childRow:last").clone(true, true);
-            
-            // pašaliname klonuotų įvedimo elementų reikšmes
+
+            // remove cloned inserted elements values
             hookClickEvent($(rowClone).find('.removeChild'));
-            
+
             $(rowClone).children("input[type=text]").val("").prop('disabled', false);
             $(rowClone).children("select").find('option').removeAttr("selected");
-            
-            // pašaliname išjungtų elementų požymius
+
+            // remove disabled elements' attributes
             $(rowClone).children("input[type=text], select").removeClass('disabledInput');
             $(rowClone).children(".removeChild").removeClass('hidden');
             $(rowClone).children("input.isDisabledForEditing").val(0);
-            
-            // klonuotą eilutę įtraukiame į pagrindinį vaikinių įrašų konteinerį
+
+            // cloned row inserted into main child container
             rowClone.appendTo(childRowContainer);
 
-            // sukuriame pagalbinį <div class="float-clear"></div> elementą formatavimui
+            // create additional <div class="float-clear"></div> element
             clearDiv = $('<div />', {"class": 'float-clear'});
             clearDiv.appendTo(childRowContainer);
         }
-        
+
         return false;
     })
 
     function hookClickEvent(exactTarget) {
         exactTarget.click(function() {
-            // pagrindinis vaikinių įrašų konteineris
+            // main child records container
             childRowContainer = $(this).parent().parent(".childRowContainer");
-            
+
             if(childRowContainer.children('.childRow').size() > 1) {
                 $(this).parent().next(".float-clear").remove();
-                $(this).parent().remove();       
-            } else { // paskutinės eilutės nepašaliname, bet paslepiame
+                $(this).parent().remove();
+            } else { // do not remove last row, just hide
                 childRowContainer.children('.childRow, .labelLeft, .labelRight').addClass("hidden");
                 childRowContainer.children(".childRow").children("input[type=text], select").prop("disabled", true);
             }
-            
+
             return false;
         });
     }
-    
-    // Datos ir laiko įskiepių nustatymas
+
+    // Time and date plugins settings
     $.datetimepicker.setLocale('lt');
     $('.datetime').datetimepicker({
         format:'Y-m-d H:i',
@@ -59,7 +59,7 @@ $(window).ready(function (){
         startDate: '2016-01-01',
         defaultDate: '2016-01-01'
     });
-    
+
     $('.date').datetimepicker({
         yearOffset:222,
         timepicker:false,
@@ -67,7 +67,7 @@ $(window).ready(function (){
         formatDate:'Y-m-d',
         defaultDate: '2016-01-01'
     });
-    
+
 });
 
 function showConfirmDialog(module, removeId) {

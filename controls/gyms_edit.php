@@ -11,14 +11,14 @@
 	$formErrors = null;
 	$fields = array();
 
-	// nustatome privalomus laukus
+	// set required fields array
 	$required = array('name', 'features', 'fk_address_id', 'street', 'house_number', 'post_code', 'fk_city_id', 'city');
 
-	// maksimalūs leidžiami laukų ilgiai
+	// set maximum length for fields
 	$maxLengths = array (
 		'post_code' => 6
 	);
-
+	// pressed submit button
 	if (!empty($_POST['submit'])) {
 	    $NewTime = $_POST['NewTime'];
 	    $newTimeArray = [];
@@ -29,7 +29,7 @@
 	    }
 
 
-		// nustatome laukų validatorių tipus
+		// set field validators types
 		$validations = array (
 			'name' => 'alfanum',
 			'features' => 'alfanum',
@@ -42,15 +42,15 @@
 			);
 
 		include 'utils/validator.class.php';
-		// sukuriame validatoriaus objektą
+		// creating validator object
 		$validator = new validator($validations, $required, $maxLengths);
 
-		// laukai įvesti be klaidų
+		// fields entered without mistakes
 		if($validator->validate($_POST)) {
-			// suformuojame laukų reikšmių masyvą SQL užklausai
+			// creating field array of data for SQL query
 			$data = $validator->preparePostFieldsForSQL();
 			if(isset($data['id_fitness_club'])) {
-				// atnaujiname duomenis
+				// updating Fitness Club
 				$gymsObj->updateGym($data);
 
 				if(isset($data['id_address'])){
@@ -62,11 +62,11 @@
             	}
 
 			} else {
-				// randame didžiausią sporto klubu id duomenų bazėje
+				// finding max id value of Fitness Club in database
 				$latestGymId = $gymsObj->getMaxIdOfGym();
 				$latestAddressId = $gymsObj->getMaxIdOfAddress();
 
-				// įrašome naują įrašą
+				// inserting new Fitness Club
 				$data['id_fitness_club'] = $latestGymId + 1;
 				$data['fk_address_id'] = $latestAddressId+1;
 				$data['id_address'] = $latestAddressId+1;
@@ -78,13 +78,13 @@
             	}
 
 			}
-			// nukreipiame į modelių puslapį
+			// redirecting to Fitness Clubs page
 			header("Location: index.php?module={$module}");
 			die();
 		} else {
-			// gauname klaidų pranešimą
+			// getting error notification
 			$formErrors = $validator->getErrorHTML();
-			// gauname įvestus laukus
+			// getting all information filled into fields
 			$fields = $_POST;
 		}
 		} elseif (!empty($_GET['action']) && !empty($_GET['sid']) && is_numeric($_GET['sid']) && !is_float($_GET['sid'])) {
@@ -97,7 +97,7 @@
 		            break;
 		    }
 		} else {
-		// tikriname, ar nurodytas elemento id. Jeigu taip, išrenkame elemento duomenis ir jais užpildome formos laukus.
+		// checking if is selected element id. If yes, getting element data and filled in all fields with that data
 			if(!empty($id)) {
 				$fields = $gymsObj->getGym($id);
 				$fieldsA = $gymsObj->getAddress($id);
@@ -115,7 +115,7 @@
 <div id="formContainer">
 	<?php if($formErrors != null) { ?>
 		<div class="errorBox">
-			Neįvesti arba neteisingai įvesti šie laukai:
+			Fill in all required fields in right format:
 			<?php
 				echo $formErrors;
 			?>
@@ -156,7 +156,7 @@
 				<select id="fk_city_id" name="fk_city_id">
 					<option value="-1">Choose a City</option>
 					<?php
-						// išrenkame visas markes
+						// electing all Cities
 						$citys = $cityObj->getCityList();
 						foreach($citys as $key => $val) {
 							$selected = "";

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Darbuotojų redagavimo klasė
+ * Employees editing class
  *
  * @author Gedas_Gardauskas
  */
@@ -13,7 +13,7 @@ class employees {
 	}
 
 	/**
-	 * Darbuotojo išrinkimas
+	 * Finding Employee by id
 	 * @param type $id
 	 * @return type
 	 */
@@ -27,7 +27,7 @@ class employees {
 	}
 
 	/**
-	 * Darbuotojų sąrašo išrinkimas
+	 * Finding Employees list
 	 * @param type $limit
 	 * @param type $offset
 	 * @return type
@@ -60,7 +60,7 @@ class employees {
 	}
 
 	/**
-	 * Darbuotojų kiekio radimas
+	 *  Finding Employees list count
 	 * @return type
 	 */
 	public function getEmployeesListCount() {
@@ -72,7 +72,7 @@ class employees {
 	}
 
 	/**
-	 * Darbuotojo šalinimas
+	 * Deleting Employee by id
 	 * @param type $id
 	 */
 	public function deleteEmployee($id) {
@@ -82,7 +82,7 @@ class employees {
 	}
 
 	/**
-	 * Darbuotojo atnaujinimas
+	 * Updating Employee data
 	 * @param type $data
 	*/
 	public function updateEmployee($data) {
@@ -99,7 +99,7 @@ class employees {
 	}
 
 	/**
-	 * Darbuotojo įrašymas
+	 * Inserting new Employee
 	 * @param type $data
 	*/
 	public function insertEmployee($data) {
@@ -129,7 +129,7 @@ class employees {
 	}
 
 	/**
-	 * Pareigų sąrašo išrinkimas
+	 * Finding position list
 	 * @return type
 	 */
 	public function getPositionList() {
@@ -141,7 +141,7 @@ class employees {
 	}
 
 	/**
-	 * Darbuotojų sąskaitų kiekio radimas
+	 * Finding Employee invoice count
 	 * @param type $id
 	 * @return type
 	 */

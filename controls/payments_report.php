@@ -11,23 +11,23 @@
 	if(!empty($_POST['submit'])) {
 		$formSubmitted = true;
 
-		// nustatome laukų validatorių tipus
+		// set field validators types
 		$validations = array (
 			'dateFrom' => 'date',
 			'dateTill' => 'date');
 
-		// sukuriame validatoriaus objektą
+		// creating validator object
 		include 'utils/validator.class.php';
 		$validator = new validator($validations);
 
 
 		if($validator->validate($_POST)) {
-			// suformuojame laukų reikšmių masyvą SQL užklausai
+			// creating field array of data for SQL query
 			$data = $validator->preparePostFieldsForSQL();
 		} else {
-			// gauname klaidų pranešimą
+			// getting error notification
 			$formErrors = $validator->getErrorHTML();
-			// gauname įvestus laukus
+			// getting all information filled into fields
 			$fields = $_POST;
 		}
 	}
@@ -67,7 +67,7 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 				<div id="formContainer">
 					<?php if($formErrors != null) { ?>
 						<div class="errorBox">
-							Neįvesti arba neteisingai įvesti šie laukai:
+							Fill in all required fields in right format:
 							<?php
 								echo $formErrors;
 							?>
@@ -83,7 +83,7 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 					</form>
 				</div>
 	<?php	} else {
-					// išrenkame ataskaitos duomenis
+					// electing Payment data
 					$AccountReportData = $paymentsObj->getAccountReport($data['dateFrom'], $data['dateTill']);
 					$AccountSumData = $paymentsObj->getAccountSum($data['dateFrom'], $data['dateTill']);
 
@@ -103,7 +103,7 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 							</tr>
 
 							<?php
-								// suformuojame lentelę
+								// generating table
 								foreach($AccountReportData as $key => $val) {
 
 									if($val['payments'] != "payed") {

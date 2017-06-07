@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Abonementų redagavimo klasė
+ * Subscription editing class
  *
  * @author Gedas_Gardauskas
  */
@@ -13,7 +13,7 @@ class subscriptions {
 	}
 
 	/**
-	 * Abonemento išrinkimas
+	 * Finding Subscription by id
 	 * @param type $id
 	 * @return type
 	 */
@@ -27,7 +27,7 @@ class subscriptions {
 	}
 
 	/**
-	 * Abonementų sąrašo išrinkimas
+	 * Finding Subscription list
 	 * @param type $limit
 	 * @param type $offset
 	 * @return type
@@ -59,7 +59,7 @@ class subscriptions {
 	}
 
 	/**
-	 * Abonementų kiekio radimas
+	 * Finding Subscription list count
 	 * @return type
 	 */
 	public function getSubscriptionListCount() {
@@ -75,7 +75,7 @@ class subscriptions {
 	}
 
 	/**
-	 * Abonemento šalinimas
+	 * Deleting Subscription by id
 	 * @param type $id
 	 */
 	public function deleteSubscription($id) {
@@ -86,7 +86,7 @@ class subscriptions {
 
 
 	/**
-	 * Sutarties atnaujinimas
+	 * Updating Subscription
 	 * @param type $data
 	*/
 	public function updateSubscription($data) {
@@ -101,7 +101,7 @@ class subscriptions {
 	}
 
 	/**
-	 * Abonemento įrašymas
+	 * Inserting new Subscription
 	 * @param type $data
 	 */
 	public function insertSubscription($data) {
@@ -127,7 +127,7 @@ class subscriptions {
 	}
 
 	/**
-	 * Tipų sąrašo išrinkimas
+	 * Finding Type list
 	 * @return type
 	 */
 	public function getTipasList() {
@@ -139,7 +139,7 @@ class subscriptions {
 	}
 
 	/**
-	 * Didžiausiausios markės id reikšmės radimas
+	 * Finding Subscription max value id
 	 * @return type
 	 */
 	public function getMaxIdOfSubscription() {
@@ -151,7 +151,7 @@ class subscriptions {
 	}
 
 	/**
-	 * Abonemento sąskaitų kiekio radimas
+	 * Finding Subscription's invoice count
 	 * @param type $id
 	 * @return type
 	 */
@@ -167,7 +167,7 @@ class subscriptions {
 	}
 	////////////////////////////////////////////////////
 	/**
-	 * -- sąrašo radimas
+	 * -- Finding list
 	 * @param type $serviceId
 	 * @return type
 	 */
@@ -214,7 +214,7 @@ class subscriptions {
 	}
 
 	/**
-	 * Didžiausios apsilankymo id reikšmės radimas
+	 * Finding Entrance Time max value id
 	 * @return type
 	 */
 	public function getMaxIdOfHours() {

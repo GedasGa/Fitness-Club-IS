@@ -2,12 +2,12 @@
 @import url("reset.css");
 
 body {
-	color: #6e6e6e; /* teksto spalva */
-	font-family: Verdana, Geneva, sans-serif; /* šriftas */
-	font-size: 12px; /* teksto dydis */
+	color: #6e6e6e; /* text color */
+	font-family: Verdana, Geneva, sans-serif; /* font */
+	font-size: 12px; /* text size */
 	background-color: #e3e3e3;
 	width: 1400px;
-	margin: 0px auto; /* bloko centravimas puslapio viduje */
+	margin: 0px auto; /* body alignment in the page*/
 }
 
 a {
@@ -42,7 +42,7 @@ a:hover {
     display: none;
 }
 
-/* viršutinė puslapio dalis */
+/* header */
 #header {
 	width: 1450px;
 	height: 70px;
@@ -61,7 +61,7 @@ a:hover {
     color: #6e6e6e;
 }
 
-/* turinio blokelis */
+/* main content */
 #content {
 	width: 1450px;
 	background-color: #fff;
@@ -70,7 +70,7 @@ a:hover {
 	float: left;
 }
 
-/* pagrindinio meniu blokelis */
+/* topMenu */
 #topMenu {
 	width: 1450px;
 	height: 45px;
@@ -83,18 +83,17 @@ a:hover {
 }
 
 #topMenu li {
-	float: left; /* nustatome horizontalųjį meniu punktų lygiavimą */
-	list-style: none; /* paslepiame sąrašo stiliaus savybes */
-	margin: 12px 15px 12px 15px; /* nustatome meniu punktų ribas */
+	float: left; /* aligning topMenu element */
+	list-style: none; /* hide all list style */
+	margin: 12px 15px 12px 15px; /* set menu limits */
 }
 
 #topMenu li a {
-	/*text-decoration: none;*/ /* paslepiame nuorodos pabraukimą */
         font-size: 15px;
 }
 
 #topMenu li a.active, #paging li.active a {
-	color: #ca4c44; /* nustatome aktyvaus meniu punkto pabraukimą */
+	color: #ca4c44; /* highlighting active menu element */
         /*background: url(images/active-menu-arrow.png) 0px 6px no-repeat;*/
 }
 
@@ -102,7 +101,7 @@ a:hover {
     border-bottom: 1px solid #ca4c44;
 }
 
-/* pradinio puslapio meniu */
+/* homeMenu */
 #homeMenu {
     width: 100%;
     float: left;
@@ -131,7 +130,7 @@ a:hover {
 }
 
 
-/* turinio blokelis */
+/* contentMain */
 #contentMain {
     width: 1420px;
     min-height: 470px; /* minimalus blokelio aukštis */
@@ -410,7 +409,7 @@ fieldset .submit {
     width: 375px;
 }
 
-/* apatinė puslapio dalis */
+/* footer */
 #footer {
 	width: 1450px;
 	height: 40px;
@@ -420,12 +419,12 @@ fieldset .submit {
 	color: #fff;
 }
 
-/* kalendorius */
+/* calendar */
 .datepick a:hover {
     border-bottom: none;
 }
 
-/* puslapiavimas */
+/* paging */
 #pagingLabel {
     float: left;
     margin: 15px 5px 17px auto;
@@ -439,7 +438,7 @@ fieldset .submit {
     margin-right: 5px;
 }
 
-/* ataskaitos */
+/* report */
 .report {
     background: none;
     margin-top: 20px;

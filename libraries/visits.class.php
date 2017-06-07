@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Apsilankymų redagavimo klasė
+ * Visits editing class
  *
  * @author Gedas_Gardauskas
  */
@@ -13,7 +13,7 @@ class visits {
 	}
 
 	/**
-	 * Apsilankimo išrinkimas
+	 * Finding Visit by id
 	 * @param type $id
 	 * @return type
 	 */
@@ -27,7 +27,7 @@ class visits {
 	}
 
 	/**
-	 * Apsilankymų sąrašo išrinkimas
+	 * Finding Visits list
 	 * @param type $limit
 	 * @param type $offset
 	 * @return type
@@ -58,7 +58,7 @@ class visits {
 	}
 
 	/**
-	 * Apsilankymų kiekio radimas
+	 * Finding Visits list count
 	 * @return type
 	 */
 	public function getVisitListCount() {
@@ -74,7 +74,7 @@ class visits {
 	}
 
 	/**
-	 * Apsilankymo šalinimas
+	 * Deleting Visit by id
 	 * @param type $id
 	 */
 	public function deleteVisit($id) {
@@ -85,7 +85,7 @@ class visits {
 
 
 	/**
-	 * Apsilankymo atnaujinimas
+	 * Updaating Visit
 	 * @param type $data
 	*/
 	public function updateVisit($data) {
@@ -99,7 +99,7 @@ class visits {
 	}
 
 	/**
-	 * Apsilankymo įrašymas
+	 * Insterting new Visit
 	 * @param type $data
 	 */
 	public function insertVisit($data) {
@@ -123,7 +123,7 @@ class visits {
 	}
 
 	/**
-	 * Didžiausiausios apsilankymo id reikšmės radimas
+	 * Finding Visit max id value
 	 * @return type
 	 */
 	public function getMaxIdOfVisit() {

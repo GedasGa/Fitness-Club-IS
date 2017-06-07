@@ -1,6 +1,6 @@
 <?php
 /**
- * Pork Formvalidator. validates fields by regexes and can sanatize them. Uses PHP filter_var built-in functions and extra regexes 
+ * Pork Formvalidator. validates fields by regexes and can sanatize them. Uses PHP filter_var built-in functions and extra regexes
  * @package pork
  */
 
@@ -8,7 +8,7 @@
 /**
  * Pork.FormValidator
  * Validates arrays or properties by setting up simple arrays
- * 
+ *
  * @package pork
  * @author SchizoDuckie
  * @copyright SchizoDuckie 2009
@@ -20,26 +20,19 @@ class validator
     public $regexes = Array(
 		'date' => "^[0-9]{4}[-/][0-9]{1,2}[-/][0-9]{1,2}\$", // 2016-01-15
 		'datetime' => "^[0-9]{4}[-/][0-9]{1,2}[-/][0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}(:[0-9]{1,2})?\$", // 2016-01-15 12:12, 2016-01-15 12:12:00
-		'positivenumber' => "^[0-9\.]+\$", // teigiami sveikieji skaičiai bei skaičiai su kableliu (pvz.: 25.14)
-		'price' => "^([1-9][0-9]*|0)(\.[0-9]{2})?\$", // kaina (pvz.: 25.99)
-		'anything' => "^[\d\D]{1,}\$", // bet koks simbolis
-		'alfanum' => "^[0-9a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ ,.-_\\s\?\!]+\$", // tekstas
-		'not_empty' => "[a-z0-9A-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+", // bet kokia reikšmė, kuri prasideda raide arba skaitmeniu
-		'words' => "^[A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ]+[A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ \\s]*\$", // žodžiai
-		'phone' => "^[0-9]{9,14}\$" // telefonas (pvz.: 860000000)
-		/* BE ŠIŲ FORMATŲ DAR GALIMA NAUDOTI STANDARTINIUS:
-		 * email,
-		 * int,
-		 * float,
-		 * boolen,
-		 * ip,
-		 * url*/
+		'positivenumber' => "^[0-9\.]+\$", // positive and double numbers (e.g.: 25.14)
+		'price' => "^([1-9][0-9]*|0)(\.[0-9]{2})?\$", // price (e.g: 25.99)
+		'anything' => "^[\d\D]{1,}\$", // any symbol
+		'alfanum' => "^[0-9a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ ,.-_\\s\?\!]+\$", // text
+		'not_empty' => "[a-z0-9A-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+", // any kind of value
+		'words' => "^[A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ]+[A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ \\s]*\$", // words
+		'phone' => "^[0-9]{9,14}\$" // phone number (e.g.: 860000000)
     );
-	
+
     private $validations, $mandatories, $lengths, $errors, $corrects, $fields;
 
 	/**
-	 * Konstruktorius
+	 * Constructor
 	 * @param type $validations
 	 * @param type $mandatories
 	 */
@@ -52,7 +45,7 @@ class validator
     }
 
     /**
-	 * Patikrinamas reikšių masyvas
+	 * Validating data array
 	 * @param type $items
 	 * @return type
 	 */
@@ -90,14 +83,14 @@ class validator
 
     	return(!$havefailures);
     }
-	
+
 	private function validateArray($array, $key) {
 		$havefailures = false;
 		if((key_exists($key, $this->validations) === false) && array_search($key, $this->mandatories) === false) {
 			$this->corrects[] = $key;
 			return false;
 		}
-		
+
 		foreach($array as $item) {
 			$result = false;
 			if($item == "" && array_search($key, $this->mandatories) === false) {
@@ -111,16 +104,16 @@ class validator
 				$this->addError($key, $this->validations[$key]);
 			}
 		}
-		
+
 		if($havefailures == false) {
 			$this->corrects[] = $key;
 		}
-		
+
 		return !$havefailures;
 	}
-	
+
     /**
-	 * Gaunamas klaidos pranešimas
+	 * Error notification
 	 * @return type
 	 */
     public function getErrorHTML() {
@@ -131,12 +124,12 @@ class validator
 			}
     		$output = "<ul>" . implode('', $errors) . "</ul>";
     	}
-    	
+
     	return($output);
     }
 
 	/**
-	 * Į klaidų masyvą įtraukiama klaida
+	 * Adding error to error list
 	 * @param type $field
 	 * @param type $type
 	 */
@@ -145,7 +138,7 @@ class validator
     }
 
     /**
-	 * Pagal nurodytą tipą patikrinama viena reikšmė
+	 * by selected type, one value is checked
 	 * @param type $var
 	 * @param type $type
 	 * @return type
@@ -159,7 +152,7 @@ class validator
     	switch($type) {
     		case 'email':
     			$var = substr($var, 0, 254);
-    			$filter = FILTER_VALIDATE_EMAIL;	
+    			$filter = FILTER_VALIDATE_EMAIL;
     		break;
     		case 'int':
     			$filter = FILTER_VALIDATE_INT;
@@ -192,7 +185,7 @@ class validator
 					$tmp[] = mysql::escape($val2);
 				}
 			}
-			
+
 			if(!in_array($key, $this->mandatories) && ($tmp == '' || $tmp == array())) {
 				$data[$key] = '';
 			} else {
@@ -201,13 +194,13 @@ class validator
 				} else {
 					$data[$key] = $tmp;
 				}
-				
+
 			}
 		}
 
 		return $data;
 	}
-	
+
 }
 
 ?>

@@ -1,18 +1,18 @@
 <?php
 
-	// sukuriame sutarčių klasės objektą
+	// creating Payment class object
 	include 'libraries/payments.class.php';
 	$paymentsObj = new payments();
 
-	// sukuriame puslapiavimo klasės objektą
+	// creating paging class object
 	include 'utils/paging.class.php';
 	$paging = new paging(NUMBER_OF_ROWS_IN_PAGE);
 
 	if(!empty($removeId)) {
-		// šaliname sąskaitą ir mokėjimą
+		// deleting Invoice and payment
 		$paymentsObj->deletePayment($removeId);
 		$paymentsObj->deleteAccount($removeId);
-		// nukreipiame į sutarčių puslapį
+		// redirecting to Invoice page
 		header("Location: index.php?module={$module}");
 		die();
 	}
@@ -39,16 +39,16 @@
 		<th></th>
 	</tr>
 	<?php
-		// suskaičiuojame bendrą įrašų kiekį
+		// counting sum of records
 		$elementCount = $paymentsObj->getPaymentListCount();
 
-		// suformuojame sąrašo puslapius
+		// generating list pages
 		$paging->process($elementCount, $pageId);
 
-		// išrenkame nurodyto puslapio sutartis
+		// electing selected page Payment
 		$data = $paymentsObj->getPaymentList($paging->size, $paging->first);
 
-		// suformuojame lentelę
+		// generating table
 		foreach($data as $key => $val) {
 			echo
 				"<tr>"
@@ -67,5 +67,5 @@
 		}
 	?>
 </table>
-
+// including pages template
 <?php include 'controls/paging.php'; ?>

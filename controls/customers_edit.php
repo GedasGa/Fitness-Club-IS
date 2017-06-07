@@ -6,21 +6,21 @@
 	$formErrors = null;
 	$fields = array();
 
-	// nustatome privalomus formos laukus
+	// set required fields array
 	$required = array('personal_id', 'name', 'surname', 'phone_number', 'email', 'first_registration', 'social_status');
 
-	// maksimalūs leidžiami laukų ilgiai
+	// set maximum length for fields
 	$maxLengths = array (
 		'personal_id' => 11,
 		'name' => 20,
 		'surname' => 20
 	);
 
-	// vartotojas paspaudė išsaugojimo mygtuką
+	// pressed submit button
 	if(!empty($_POST['submit'])) {
 		include 'utils/validator.class.php';
 
-		// nustatome laukų validatorių tipus
+		// set field validators types
 		$validations = array (
 			'personal_id' => 'positivenumber',
 			'name' => 'alfanum',
@@ -31,37 +31,37 @@
 			'social_status' => 'positivenumber'
 		);
 
-		// sukuriame laukų validatoriaus objektą
+		// creating validator object
 		$validator = new validator($validations, $required, $maxLengths);
 
-		// laukai įvesti be klaidų
+		// fields entered without mistakes
 		if($validator->validate($_POST)) {
-			// suformuojame laukų reikšmių masyvą SQL užklausai
+			// creating field array of data for SQL query
 			$data = $validator->preparePostFieldsForSQL();
 
 			if(isset($data['editing'])) {
-				// redaguojame klientą
+				// updating Customer
 				$customersObj->updateCustomer($data);
 			} else {
-				// įrašome naują klientą
+				// inserting new Customer
 				$customersObj->insertCustomer($data);
 			}
 
-			// nukreipiame vartotoją į klientų puslapį
+			// redirecting to Customer page
 			header("Location: index.php?module={$module}");
 			die();
 		}
 		else {
-			// gauname klaidų pranešimą
+			// getting error notification
 			$formErrors = $validator->getErrorHTML();
 
-			// laukų reikšmių kintamajam priskiriame įvestų laukų reikšmes
+			// getting all information filled into fields
 			$fields = $_POST;
 		}
 	}	else {
-		// tikriname, ar nurodytas elemento id. Jeigu taip, išrenkame elemento duomenis ir jais užpildome formos laukus.
+		// checking if is selected element id. If yes, getting element data and filled in all fields with that data
 		if(!empty($id)) {
-			// išrenkame klientą
+			// electing Customer
 			$fields = $customersObj->getCustomer($id);
 			$fields['editing'] = 1;
 		}
@@ -77,7 +77,7 @@
 <div id="formContainer">
 	<?php if($formErrors != null) { ?>
 		<div class="errorBox">
-			Neįvesti arba neteisingai įvesti šie laukai:
+			Fill in all required fields in right format:
 			<?php
 				echo $formErrors;
 			?>
@@ -124,7 +124,7 @@
 					<select id="social_status" name="social_status">
 						<option value="-1">Select social status</option>
 						<?php
-							// išrenkame visas kategorijas sugeneruoti pasirinkimų lauką
+							// electint all categories to generate selection field
 							$SocStausasTypes = $customersObj->getSocialStatusesList();
 							foreach($SocStausasTypes as $key => $val) {
 								$selected = "";

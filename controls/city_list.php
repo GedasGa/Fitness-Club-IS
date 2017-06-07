@@ -1,28 +1,28 @@
 <?php
 
-	// sukuriame sporto klubų klasės objektą
+	// creating City class object
 	include 'libraries/city.class.php';
 	$cityObj = new city();
 
-	// sukuriame puslapiavimo klasės objektą
+	// creating paging class object
 	include 'utils/paging.class.php';
 	$paging = new paging(NUMBER_OF_ROWS_IN_PAGE);
 
 	if(!empty($removeId)) {
-		// patikriname, ar šalinama city nepriskirta adresui
+		// checking if city which is going to be deleted is not assigned to any address
 		$count = $cityObj->getAddressCountOfCity($removeId);
 
 		$removeErrorParameter = '';
 		if($count == 0) {
-			// šaliname miestą
+			// deleting city
 			$cityObj->deleteCity($removeId);
 
 		} else {
-			// nepašalinome, nes city priskirtas adresui, rodome klaidos pranešimą
+			// cannot delete because City is assigned to address, error notification
 			$removeErrorParameter = '&remove_error=1';
 		}
 
-		// nukreipiame į sporto klubų puslapį
+		// redirecting to Fitness Club page
 		header("Location: index.php?module={$module}{$removeErrorParameter}");
 		die();
 	}
@@ -50,16 +50,16 @@
 		<th></th>
 	</tr>
 	<?php
-		// suskaičiuojame bendrą įrašų kiekį
+		// counting sum of records
 		$elementCount = $cityObj->getCityListCount();
 
-		// suformuojame sąrašo puslapius
+		// generating list pages
 		$paging->process($elementCount, $pageId);
 
-		// išrenkame nurodyto puslapio sporto klubus
+		// electing selected page Fitness Clubs
 		$data = $cityObj->getCityList($paging->size, $paging->first);
 
-		// suformuojame lentelę
+		// generating table
 		foreach($data as $key => $val) {
 			echo
 				"<tr>"
@@ -75,6 +75,6 @@
 </table>
 
 <?php
-	// įtraukiame puslapių šabloną
+	// including pages template
 	include 'controls/paging.php';
 ?>

@@ -12,10 +12,10 @@
 	$formErrors = null;
 	$fields = array();
 
-	// nustatome privalomus formos laukus
+	// set required fields array
 	$required = array('valid_from', 'valid_till', 'price', 'type', 'fk_customer_id');
 
-	// vartotojas paspaudė išsaugojimo mygtuką
+	// pressed submit button
 	if(!empty($_POST['submit'])) {
 	    $NewTime = $_POST['NewTime'];
 	    $newTimeArray = [];
@@ -25,7 +25,7 @@
 	        }
 	    }
 
-		// nustatome laukų validatorių tipus
+		// set field validators types
 		$validations = array (
 			'valid_from' => 'date',
 			'valid_till' => 'date',
@@ -35,12 +35,12 @@
 		);
 
 		include 'utils/validator.class.php';
-		// sukuriame validatoriaus objektą
+		// creating validator object
 		$validator = new validator($validations, $required);
 
-		// laukai įvesti be klaidų
+		// fields entered without mistakes
 		if($validator->validate($_POST)) {
-			// suformuojame laukų reikšmių masyvą SQL užklausai
+			// creating field array of data for SQL query
 			$data = $validator->preparePostFieldsForSQL();
 			if(isset($data['id_subscription'])) {
 				// atnaujiname duomenis
@@ -51,10 +51,10 @@
             	}
 
 			} else {
-				// randame didžiausią Visitio id duomenų bazėje
+				// finding max id value of Subscription in database
 				$latestId = $subscriptionsObj->getMaxIdOfSubscription();
 
-				// įrašome naują įrašą
+				// inserting new Subscription
 				$data['id_subscription'] = $latestId + 1;
 				$subscriptionsObj->insertSubscription($data);
 
@@ -62,13 +62,13 @@
                 	$subscriptionsObj->insertScheduleHours($n, $data['id_subscription']);
             	}
 			}
-			// nukreipiame į modelių puslapį
+			// redirecting to Subscriptions page
 			header("Location: index.php?module={$module}");
 			die();
 		} else {
-			// gauname klaidų pranešimą
+			// getting error notification
 			$formErrors = $validator->getErrorHTML();
-			// gauname įvestus laukus
+			// getting all information filled into fields
 			$fields = $_POST;
 		}
 		} elseif (!empty($_GET['action']) && !empty($_GET['sid']) && is_numeric($_GET['sid']) && !is_float($_GET['sid'])) {
@@ -81,7 +81,7 @@
 		            break;
 		    }
 	} else {
-		// tikriname, ar nurodytas elemento id. Jeigu taip, išrenkame elemento duomenis ir jais užpildome formos laukus.
+		// checking if is selected element id. If yes, getting element data and filled in all fields with that data
 		if(!empty($id)) {
 			$fields = $subscriptionsObj->getSubscription($id);
 	        $hoursFields = $subscriptionsObj->getScheduleHours($id);
@@ -89,7 +89,7 @@
 	}
 ?>
 <ul id="pagePath">
-	<li><a href="index.php">Pradžia</a></li>
+	<li><a href="index.php">Home page</a></li>
 	<li><a href="index.php?module=<?php echo $module; ?>">Subscriptions</a></li>
 	<li><?php if(!empty($id)) echo "Edit subscription"; else echo "Add subscription"; ?></li>
 </ul>
@@ -97,7 +97,7 @@
 <div id="formContainer">
 	<?php if($formErrors != null) { ?>
 		<div class="errorBox">
-			Neįvesti arba neteisingai įvesti šie laukai:
+			Fill in all required fields in right format:
 			<?php
 				echo $formErrors;
 			?>
@@ -123,7 +123,7 @@
 				<select id="type" name="type">
 					<option value="-1">Select subscription type</option>
 					<?php
-						// išrenkame visas kategorijas sugeneruoti pasirinkimų lauką
+						// electing all Subscriptions
 						$PareigosTypes = $subscriptionsObj->getTipasList();
 						foreach($PareigosTypes as $key => $val) {
 							$selected = "";
@@ -136,9 +136,9 @@
 				</select>
 			</p>
 			<p>
-				<label class="field" for="fk_customer_id">Klientas<?php echo in_array('fk_customer_id', $required) ? '<span> *</span>' : ''; ?></label>
+				<label class="field" for="fk_customer_id">Customer<?php echo in_array('fk_customer_id', $required) ? '<span> *</span>' : ''; ?></label>
 				<select id="fk_customer_id" name="fk_customer_id">
-					<option value="-1">Pasirinkite klientą</option>
+					<option value="-1">Select a Customer</option>
 					<?php
 						// išrenkame visas markes
 						$cutomers = $customersObj->getCustomersList();

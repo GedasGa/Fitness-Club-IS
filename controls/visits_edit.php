@@ -3,30 +3,30 @@
 	include 'libraries/visits.class.php';
 	$visitsObj = new visits();
 
-	// sukuriame klientų klasės objektą
+	// creating Customer class object
 	include 'libraries/customers.class.php';
 	$customersObj = new customers();
 
-	// sukuriame sporto klubų klasės objektą
+	// creating Fitness Club class object
 	include 'libraries/gyms.class.php';
 	$gymsObj = new gyms();
 
 	$formErrors = null;
 	$fields = array();
 
-	// nustatome privalomus formos laukus
+	// set required fields array
 	$required = array('visit_date', 'time', 'fk_customer_id', 'fk_fitness_club_id');
 
-	// maksimalūs leidžiami laukų ilgiai
+	// set maximum length for fields
 	$maxLengths = array (
 		'time' => 8
 	);
 
-	// vartotojas paspaudė išsaugojimo mygtuką
+	// pressed submit button
 	if(!empty($_POST['submit'])) {
 		include 'utils/validator.class.php';
 
-		// nustatome laukų validatorių tipus
+		// set field validators types
 		$validations = array (
 			'visit_date' => 'date',
 			'time' => 'alfanum',
@@ -34,36 +34,36 @@
 			'fk_fitness_club_id' => 'positivenumber'
 		);
 
-		// sukuriame validatoriaus objektą
+		// creating validator object
 		$validator = new validator($validations, $required, $maxLengths);
 
-		// laukai įvesti be klaidų
+		// fields entered without mistakes
 		if($validator->validate($_POST)) {
-			// suformuojame laukų reikšmių masyvą SQL užklausai
+			// creating field array of data for SQL query
 			$data = $validator->preparePostFieldsForSQL();
 			if(isset($data['id_visit'])) {
-				// atnaujiname duomenis
+				// updating Visits
 				$visitsObj->updateVisit($data);
 			} else {
-				// randame didžiausią Visitio id duomenų bazėje
+				// finding max id value of Visits in database
 				$latestId = $visitsObj->getMaxIdOfVisit();
 
-				// įrašome naują įrašą
+				// inserting new Visit
 				$data['id_visit'] = $latestId + 1;
 				$visitsObj->insertVisit($data);
 			}
 
-			// nukreipiame į modelių puslapį
+			// redirecting to Visits page
 			header("Location: index.php?module={$module}");
 			die();
 		} else {
-			// gauname klaidų pranešimą
+			// getting error notification
 			$formErrors = $validator->getErrorHTML();
-			// gauname įvestus laukus
+			// getting all information filled into fields
 			$fields = $_POST;
 		}
 	} else {
-		// tikriname, ar nurodytas elemento id. Jeigu taip, išrenkame elemento duomenis ir jais užpildome formos laukus.
+		// checking if is selected element id. If yes, getting element data and filled in all fields with that data
 		if(!empty($id)) {
 			$fields = $visitsObj->getVisit($id);
 		}
@@ -78,7 +78,7 @@
 <div id="formContainer">
 	<?php if($formErrors != null) { ?>
 		<div class="errorBox">
-			Neįvesti arba neteisingai įvesti šie laukai:
+			Fill in all required fields in right format:
 			<?php
 				echo $formErrors;
 			?>
@@ -101,7 +101,7 @@
 				<select id="fk_customer_id" name="fk_customer_id">
 					<option value="-1">Select customer</option>
 					<?php
-						// išrenkame visas markes
+						// electing all customers
 						$customers = $customersObj->getCustomersList();
 						foreach($customers as $key => $val) {
 							$selected = "";
@@ -118,7 +118,7 @@
 				<select id="fk_fitness_club_id" name="fk_fitness_club_id">
 					<option value="-1">Select fitness club</option>
 					<?php
-						// išrenkame visas markes
+						// electing all Fitness Clubs
 						$gyms = $gymsObj->getGymsList();
 						foreach($gyms as $key => $val) {
 							$selected = "";

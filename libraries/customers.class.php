@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Klientų redagavimo klasė
+ * customers editing class
  *
  * @author Gedas_Gardauskas
  */

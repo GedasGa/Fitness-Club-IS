@@ -1,16 +1,16 @@
 <?php
-	// nuskaitome konfigūracijų failą
+	// reading configuration file
 	include 'config.php';
 
-	// iškviečiame prisijungimo prie duomenų bazės klasę
+	// include login to database class
 	include 'utils/mysql.class.php';
 
-	// nustatome pasirinktos ataskaitos id
+	// set selected report id
 	$id = '';
 	if(isset($_GET['id'])) {
 		$id = mysql::escape($_GET['id']);
 	}
-	
+
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -18,7 +18,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="robots" content="noindex">
-		<title>Sporto klubų IS</title>
+		<title>Fitness Clubs IS</title>
 		<link rel="stylesheet" type="text/css" href="scripts/datetimepicker/jquery.datetimepicker.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="style/main.css" media="screen" />
 		<script type="text/javascript" src="scripts/jquery-1.12.0.min.js"></script>
