@@ -20,11 +20,12 @@
 
 	// pressed submit button
 	if(!empty($_POST['submit'])) {
-	    $New = $_POST['New'];
-	    $new = [];
-	    foreach ($New as $key => $n) {
+	    $NewPayment = $_POST['NewPayment'];
+	    $newPayment = [];
+			echo($NewPayment);
+	    foreach ($NewPayment as $key => $n) {
 	        foreach ($n as $key2 => $m) {
-	            $new[$key2][$key] = $m;
+	            $newPayment[$key2][$key] = $m;
 	        }
 	    }
 
@@ -53,9 +54,8 @@
 				if(isset($data['number'])) {
 					// updating Payment
 					$paymentsObj->updateAccount($data);
-						var_dump($AccountPayment);
-					foreach ($new as $n) {
-	                	$paymentsObj->insertAccountPayment($n, $data['number']);
+					foreach ($newPayment as $n) {
+	                	$paymentsObj->insertAccountPayment($n, $data['number'], $data['fk_customer_id'] );
 	                	//var_dump(mysql::error());
 
 	            	}
@@ -74,8 +74,8 @@
 					// inserting new Invoice
 					$paymentsObj->insertAccount($data);
 
-					foreach ($new as $n) {
-                		$paymentsObj->insertAccountPayment($n, $data['number']);
+					foreach ($newPayment as $n) {
+                		$paymentsObj->insertAccountPayment($n, $data['number'], $data['fk_customer_id']);
 					}
 				}
 
@@ -214,8 +214,8 @@
 				?>
 
 					<div class="childRow hidden">
-						<input type="text" name="New[payment_date][]" value="" class="textbox-100" disabled="disabled" />
-						<input type="text" name="New[amount][]" value="" class="textbox-100" disabled="disabled" />
+						<input type="text" name="NewPayment[payment_date][]" value="" class="textbox-100" disabled="disabled"/>
+						<input type="text" name="NewPayment[payment_amount][]" value="" class="textbox-100" disabled="disabled" />
 						<input type="hidden" class="isDisabledForEditing" name="neaktyvus[]" value="0" />
 
 					</div>
@@ -225,9 +225,10 @@
 					} else {
 						foreach($AccountPayment as $key => $val) {
 				?>
+
                                     <div class="childRow">
-                                        <input type="text" name="New[payment_date][]" value="<?php echo $val['payment_date']; ?>" class="textbox-100" disabled/>
-                                        <input type="text" name="New[amount][]" value="<?php echo $val['amount']; ?>" class="textbox-100" disabled/>
+                                        <input type="text" name="NewPayment[payment_date][]" value="<?php echo $val['payment_date']; ?>" class="textbox-100" disabled/>
+                                        <input type="text" name="NewPayment[payment_amount][]" value="<?php echo $val['payment_amount']; ?>" class="textbox-100" disabled/>
                                     </div>
                                     <div class="float-clear"></div>
 				<?php
@@ -238,7 +239,6 @@
 			<p id="newItemButtonContainer">
 				<a href="#" title="" class="addChild">Add</a>
 			</p>
-
 		<p>
 			<input type="submit" class="submit" name="submit" value="Save">
 		</p>

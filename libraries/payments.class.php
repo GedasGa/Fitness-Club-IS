@@ -43,7 +43,7 @@ class payments {
 
 		$query = "  SELECT `PAYMENT`.`id_payment`,
 						   `PAYMENT`.`payment_date`,
-						   `PAYMENT`.`amount`,
+						   `PAYMENT`.`payment_amount`,
 						   `CUSTOMER`.`name` AS `customer_name`,
 						   `CUSTOMER`.`surname` AS `customer_surname`,
 						   `EMPLOYEE`.`name` AS `employee_name`,
@@ -100,7 +100,7 @@ class payments {
 	public function updatePayment($data) {
 		$query = "  UPDATE `PAYMENT`
 					SET    `payment_date`='{$data['payment_date']}',
-						   `amount`='{$data['amount']}',
+						   `payment_amount`='{$data['payment_amount']}',
 						   `fk_customer_id`='{$data['fk_customer_id']}'
 					WHERE `id_payment`='{$data['id_payment']}'";
 		mysql::query($query);
@@ -115,7 +115,7 @@ class payments {
 								(
 									`id_payment`,
 									`payment_date`,
-									`amount`,
+									`payment_amount`,
 									`fk_customer_id`,
 									`fk_invoice_id`
 								)
@@ -123,7 +123,7 @@ class payments {
 								(
 									'{$data['id_payment']}',
 									'{$data['payment_date']}',
-									'{$data['amount']}',
+									'{$data['payment_amount']}',
 									'{$data['fk_customer_id']}',
 									'{$data['number']}'
 								)";
@@ -148,6 +148,7 @@ class payments {
 	 * Finding Invoice
 	 * @param type $id
 	 * @return type
+	 *	 WHERE `fk_invoice_id`='{$id}'
 	 */
 	public function getAccountPayment($id) {
 		$query = "  SELECT *
@@ -155,7 +156,7 @@ class payments {
 					WHERE `fk_invoice_id`='{$id}'";
 		$data = mysql::select($query);
 
-		return $data[0];
+		return $data;
 	}
 
 		public function deleteAccountPayment($id) {
@@ -168,13 +169,13 @@ class payments {
 	 *
 	 * @param type $data
 	 */
-	public function insertAccountPayment($data, $ID) {
+	public function insertAccountPayment($data, $ID, $customer) {
 		$nextHId = $this->getMaxIdOfPayment() + 1;
 		$query = "  INSERT INTO `PAYMENT`
 								(
 									`id_payment`,
 									`payment_date`,
-									`amount`,
+									`payment_amount`,
 									`fk_customer_id`,
 									`fk_invoice_id`
 								)
@@ -182,8 +183,8 @@ class payments {
 								(
 									'{$nextHId}',
 									'{$data['payment_date']}',
-									'{$data['amount']}',
-									'{$data['fk_customer_id']}',
+									'{$data['payment_amount']}',
+									'{$customer}',
 									'{$ID}'
 								)";
 		$result = mysql::query($query);
@@ -207,7 +208,7 @@ class payments {
 						   `EMPLOYEE`.`name` AS `employee_name`,
 						   `EMPLOYEE`.`surname` AS `employee_surname`,
 						   `PAYMENT`.`payment_date`,
-						   `PAYMENT`.`amount`,
+						   `PAYMENT`.`payment_amount`,
 						   `PAYMENT`.`fk_customer_id`,
 						   `PAYMENT`.`fk_invoice_id`
 					FROM `INVOICE`
@@ -247,13 +248,13 @@ class payments {
 						   `EMPLOYEE`.`surname` AS `employee_surname`,
 					   	 `PAYMENT`.`id_payment`,
 						   `PAYMENT`.`payment_date`,
-						   `PAYMENT`.`amount`
+						   `PAYMENT`.`payment_amount`
 					FROM `INVOICE`
 						LEFT JOIN `PAYMENT`
 							ON `INVOICE`.`number`=`PAYMENT`.`fk_invoice_id`
-						LEFT JOIN `CUSTOMER`
+						JOIN `CUSTOMER`
 							ON `PAYMENT`.`fk_customer_id`=`CUSTOMER`.`personal_id`
-						LEFT JOIN `EMPLOYEE`
+						JOIN `EMPLOYEE`
 							ON `INVOICE`.`fk_employee_id`=`EMPLOYEE`.`personal_id`" . $limitOffsetString;
 		$data = mysql::select($query);
 
@@ -267,13 +268,13 @@ class payments {
 	 */
 	public function getAccountListCount() {
 		$query = "  SELECT COUNT(`number`) AS `count`
-					FROM `INVOICE`
-						LEFT JOIN `PAYMENT`
-							ON `INVOICE`.`number`=`PAYMENT`.`fk_invoice_id`
-						LEFT JOIN `CUSTOMER`
-							ON `PAYMENT`.`fk_customer_id`=`CUSTOMER`.`personal_id`
-						LEFT JOIN `EMPLOYEE`
-							ON `INVOICE`.`fk_employee_id`=`EMPLOYEE`.`personal_id`";
+								FROM `INVOICE`
+									LEFT JOIN `PAYMENT`
+										ON `INVOICE`.`number`=`PAYMENT`.`fk_invoice_id`
+									JOIN `CUSTOMER`
+										ON `PAYMENT`.`fk_customer_id`=`CUSTOMER`.`personal_id`
+									JOIN `EMPLOYEE`
+										ON `INVOICE`.`fk_employee_id`=`EMPLOYEE`.`personal_id`";
 		$data = mysql::select($query);
 
 		return $data[0]['count'];
@@ -351,18 +352,16 @@ class payments {
 						   `EMPLOYEE`.`surname` AS `employee_surname`,
 					   	 `PAYMENT`.`id_payment`,
 						   `PAYMENT`.`payment_date`,
-						   `PAYMENT`.`amount`,
-						   IF(`amount`=`invoice_amount`, 'payed', (`amount`-`invoice_amount`)) AS `payments`
+						   `PAYMENT`.`payment_amount`,
+						   IF(`payment_amount`=`invoice_amount`, 'payed', (`invoice_amount`-`payment_amount`)) AS `payments`
 					FROM `INVOICE`
-						LEFT JOIN `PAYMENT`
+						INNER JOIN `PAYMENT`
 							ON `INVOICE`.`number`=`PAYMENT`.`fk_invoice_id`
-						LEFT JOIN `CUSTOMER`
+						INNER JOIN `CUSTOMER`
 							ON `PAYMENT`.`fk_customer_id`=`CUSTOMER`.`personal_id`
-						LEFT JOIN `EMPLOYEE`
+						INNER JOIN `EMPLOYEE`
 							ON `INVOICE`.`fk_employee_id`=`EMPLOYEE`.`personal_id`
-					{$whereClauseString}
-					GROUP BY `INVOICE`.`number`
-					Order BY `INVOICE`.`number` ASC";
+					{$whereClauseString}";
 		$data = mysql::select($query);
 
 		return $data;
@@ -382,7 +381,7 @@ class payments {
 		}
 
 		$query = "  SELECT  SUM(`INVOICE`.`invoice_amount`) as `invoices_amount`,
-							SUM(`PAYMENT`.`amount`) as `payments_amount`
+							SUM(`PAYMENT`.`payment_amount`) as `payments_amount`
 					FROM `INVOICE`
 						LEFT JOIN `PAYMENT`
 							ON `INVOICE`.`number`=`PAYMENT`.`fk_invoice_id`

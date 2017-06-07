@@ -35,9 +35,9 @@
 if($formSubmitted == true && ($formErrors == null)) { ?>
 	<div id="header">
 		<ul id="reportInfo">
-			<li class="title">Customers Subscriptions Report</li>
-			<li>Date Issued: <span><?php echo date("Y-m-d"); ?></span></li>
-			<li>Subscription experation date:
+			<li class="title">Customers Subscriptions report</li>
+			<li>Date issued: <span><?php echo date("Y-m-d"); ?></span></li>
+			<li>Subscription period:
 				<span>
 					<?php
 						if(!empty($data['dateFrom'])) {
@@ -91,8 +91,8 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 
 					<table class="reportTable">
 						<tr>
-							<th>subscription</th>
-							<th>Expiration date</th>
+							<th>Subscription (Number, Date)</th>
+							<th>Subscription period</th>
 							<th>Type</th>
 							<th>Price</th>
 						</tr>
@@ -139,7 +139,7 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 
 						<tr class="aggregate">
 							<td class="label" colspan="3">Amount:</td>
-							<td class="border"><?php echo $totalSubscriptionsPrice[0]['amount']; ?> &euro;</td>
+							<td class="border"><?php echo $totalSubscriptionsPrice[0]['total_amount']; ?> &euro;</td>
 						</tr>
 					</table>
 			<?php   } else { ?>

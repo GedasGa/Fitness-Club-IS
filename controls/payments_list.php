@@ -55,13 +55,13 @@
 					. "<td>{$val['number']}</td>"
 					. "<td>{$val['invoice_date']}</td>"
 					. "<td>{$val['invoice_amount']}</td>"
-					. "<td>{$val['amount']}</td>"
+					. "<td>{$val['payment_amount']}</td>"
 					. "<td>{$val['employee_name']} {$val['employee_surname']}</td>"
 					. "<td>{$val['customer_name']} {$val['customer_surname']}</td>"
 					. "<td>{$val['subscription']}</td>"
 					. "<td>"
 						. "<a href='#' onclick='showConfirmDialog(\"{$module}\", \"{$val['number']}\"); return false;' title=''>delete</a>&nbsp;"
-						. "<a href='index.php?module={$module}&id={$val['id_payment']}' title=''>edit</a>"
+						. "<a href='index.php?module={$module}&id={$val['number']}' title=''>edit</a>"
 					. "</td>"
 				. "</tr>";
 		}

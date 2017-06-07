@@ -194,6 +194,7 @@
 				<?php
 					} else {
 						foreach($hoursFields as $key => $val) {
+
 				?>
                                     <div class="childRow">
                                         <input type="text" name="NewTime[weekday][]" value="<?php echo $val['weekday']; ?>" class="textbox-100" disabled/>
