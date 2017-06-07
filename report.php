@@ -18,7 +18,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="robots" content="noindex">
-		<title>Sporto klubų IS</title>
+		<title>Fitness Clubs IS</title>
 		<link rel="stylesheet" type="text/css" href="scripts/datetimepicker/jquery.datetimepicker.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="style/main.css" media="screen" />
 		<script type="text/javascript" src="scripts/jquery-1.12.0.min.js"></script>

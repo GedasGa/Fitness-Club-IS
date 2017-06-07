@@ -6,7 +6,7 @@
 	$formErrors = null;
 	$fields = array();
 
-	// set required fields
+	// set required fields array
 	$required = array('city');
 
 	// set maximum length for fields
@@ -65,7 +65,7 @@
 <div id="formContainer">
 	<?php if($formErrors != null) { ?>
 		<div class="errorBox">
-			Neįvesti arba neteisingai įvesti šie laukai:
+			Fill in all required fields in right format:
 			<?php
 				echo $formErrors;
 			?>

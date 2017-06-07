@@ -2,28 +2,28 @@
 	include 'libraries/employees.class.php';
 	$employeesObj = new employees();
 
-	// sukuriame sporto klubų klasės objektą
+	// creating Employee class object
 	include 'libraries/gyms.class.php';
 	$gymsObj = new gyms();
 
 	$formErrors = null;
 	$fields = array();
 
-	// nustatome privalomus formos laukus
+	// set required fields array
 	$required = array('personal_id', 'name', 'surname', 'phone_number', 'email', 'recruitment_date', 'position', 'fk_fitness_club_id');
 
-	// maksimalūs leidžiami laukų ilgiai
+	// set maximum length for fields
 	$maxLengths = array (
 		'personal_id' => 11,
 		'name' => 20,
 		'surname' => 20
 	);
 
-	// vartotojas paspaudė išsaugojimo mygtuką
+	// pressed submit button
 	if(!empty($_POST['submit'])) {
 		include 'utils/validator.class.php';
 
-		// nustatome laukų validatorių tipus
+		// set field validator type
 		$validations = array (
 			'personal_id' => 'positivenumber',
 			'name' => 'alfanum',
@@ -35,39 +35,39 @@
 			'fk_fitness_club_id' => 'positivenumber'
 		);
 
-		// sukuriame laukų validatoriaus objektą
+		// creating validator object
 		$validator = new validator($validations, $required, $maxLengths);
 
-		// laukai įvesti be klaidų
+		// fields entered without mistakes
 		if($validator->validate($_POST)) {
-			// suformuojame laukų reikšmių masyvą SQL užklausai
+			// creating field array of data for SQL query
 			$data = $validator->preparePostFieldsForSQL();
 
 			if(isset($data['editing'])) {
-				// redaguojame darbuotoją
+				// editing Employee
 				$employeesObj->updateEmployee($data);
 			} else {
-				// įrašome naują darbuotoją
+				// inserting new Employee
 				$employeesObj->insertEmployee($data);
 				//var_dump(mysql::error());
 				//var_dump($data);
 			}
 			//exit();
-			// nukreipiame vartotoją į klientų puslapį
+			// redirecting to Employee page
 			header("Location: index.php?module={$module}");
 			die();
 		}
 		else {
-			// gauname klaidų pranešimą
+			// getting error notification
 			$formErrors = $validator->getErrorHTML();
 
-			// laukų reikšmių kintamajam priskiriame įvestų laukų reikšmes
+			// getting filled insterted information into fields
 			$fields = $_POST;
 		}
 	}	else {
-		// tikriname, ar nurodytas elemento id. Jeigu taip, išrenkame elemento duomenis ir jais užpildome formos laukus.
+		// checking if is selected element id. If yes, getting element data and filled in all fields with that data
 		if(!empty($id)) {
-			// išrenkame darbuotoją
+			// electing Employee
 			$fields = $employeesObj->getEmployee($id);
 			$fields['editing'] = 1;
 		}
@@ -83,7 +83,7 @@
 <div id="formContainer">
 	<?php if($formErrors != null) { ?>
 		<div class="errorBox">
-			Neįvesti arba neteisingai įvesti šie laukai:
+			Fill in all required fields in right format:
 			<?php
 				echo $formErrors;
 			?>
@@ -130,7 +130,7 @@
 					<select id="position" name="position">
 						<option value="-1">Select position</option>
 						<?php
-							// išrenkame visas kategorijas sugeneruoti pasirinkimų lauką
+							// electing all categories to generate selection field
 							$PareigosTypes = $employeesObj->getPositionList();
 							foreach($PareigosTypes as $key => $val) {
 								$selected = "";
@@ -147,7 +147,7 @@
 					<select id="fk_fitness_club_id" name="fk_fitness_club_id">
 						<option value="-1">Select fitness club</option>
 						<?php
-							// išrenkame visas markes
+							// electing all Fitness Clubs
 							$gyms = $gymsObj->getGymsList();
 							foreach($gyms as $key => $val) {
 								$selected = "";

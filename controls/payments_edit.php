@@ -15,10 +15,10 @@
 	$formErrors = null;
 	$fields = array();
 
-	// nustatome privalomus laukus
+	// set required fields array
 	$required = array('number', 'invoice_date', 'invoice_amount', 'fk_subscription_id', 'fk_employee_id', 'payment_date', 'amount', 'fk_customer_id');
 
-	// vartotojas paspaudė išsaugojimo mygtuką
+	// pressed submit button
 	if(!empty($_POST['submit'])) {
 	    $New = $_POST['New'];
 	    $new = [];
@@ -28,7 +28,7 @@
 	        }
 	    }
 
-		// nustatome laukų validatorių tipus
+		// set field validator type
 		$validations = array (
 			'number' => 'positivenumber',
 			'invoice_date' => 'date',
@@ -41,17 +41,17 @@
 		);
 
 		include 'utils/validator.class.php';
-		// sukuriame laukų validatoriaus objektą
+		// creating validator object
 		$validator = new validator($validations, $required);
 
-		// laukai įvesti be klaidų
+		// fields entered without mistakes
 		if($validator->validate($_POST)) {
-			// suformuojame laukų reikšmių masyvą SQL užklausai
+			// creating field array of data for SQL query
 			$data = $validator->preparePostFieldsForSQL();
 
 			if(isset($data['editing'])) {
 				if(isset($data['number'])) {
-					// atnaujiname duomenis
+					// updating Payment
 					$paymentsObj->updateAccount($data);
 						var_dump($AccountPayment);
 					foreach ($new as $n) {
@@ -62,16 +62,16 @@
 	         	}
 
 			} else {
-				// patikriname, ar nėra sutarčių su tokiu pačiu numeriu
+				// checking if there is no invoice with the same id
 				$tmp = $paymentsObj->getAccount($data['']);
 
 				if(isset($tmp['number'])) {
-					// sudarome klaidų pranešimą
-					$formErrors = "Sąskaita su įvestu numeriu jau egzistuoja.";
-					// laukų reikšmių kintamajam priskiriame įvestų laukų reikšmes
+					// creating error notification
+					$formErrors = "Invoice with this number already exist";
+					// getting filled insterted information into fields
 					$fields = $_POST;
 				} else {
-					// įrašome naują sutartį
+					// inserting new Invoice
 					$paymentsObj->insertAccount($data);
 
 					foreach ($new as $n) {
@@ -81,16 +81,16 @@
 
 			}
 
-			// nukreipiame vartotoją į sutarčių puslapį
+			// redirecting to Payments page
 			if($formErrors == null) {
 				header("Location: index.php?module={$module}");
 				die();
 			}
 		} else {
-			// gauname klaidų pranešimą
+			// getting error notification
 			$formErrors = $validator->getErrorHTML();
 
-			// laukų reikšmių kintamajam priskiriame įvestų laukų reikšmes
+			// getting filled insterted information into fields
 			$fields = $_POST;
 		}
 		} elseif (!empty($_GET['action']) && !empty($_GET['sid']) && is_numeric($_GET['sid']) && !is_float($_GET['sid'])) {
@@ -103,7 +103,7 @@
 		            break;
 		    }
 	} else {
-		// tikriname, ar adreso eilutėje nenurodytas elemento id. Jeigu taip, išrenkame elemento duomenis ir jais užpildome formos laukus.
+		// checking if selected element id. If yes, electing all element data from database and filled in all forms with data
 		if(!empty($id)) {
 			$fieldsA = $paymentsObj->getAccount($id);
 			$AccountPayment = $paymentsObj->getAccountPayment($id);
@@ -121,7 +121,7 @@
 <div id="formContainer">
 	<?php if($formErrors != null) { ?>
 		<div class="errorBox">
-			Neįvesti arba neteisingai įvesti šie laukai:
+			Fill in all required fields in right format:
 			<?php
 				echo $formErrors;
 			?>
@@ -154,7 +154,7 @@
 				<select id="fk_employee_id" name="fk_employee_id">
 					<option value="">---------------</option>
 					<?php
-						// išrenkame vartotojus
+						// electing all Employees
 						$data = $employeesObj->getEmployeesList();
 						foreach($data as $key => $val) {
 							$selected = "";
@@ -171,7 +171,7 @@
 				<select id="fk_customer_id" name="fk_customer_id">
 					<option value="">---------------</option>
 					<?php
-						// išrenkame klientus
+						// electing all Customers
 						$data = $customersObj->getCustomersList();
 						foreach($data as $key => $val) {
 							$selected = "";
@@ -188,7 +188,7 @@
 				<select id="fk_subscription_id" name="fk_subscription_id">
 					<option value="">---------------</option>
 					<?php
-						// išrenkame būsenas
+						// electing all subscriptions
 						$subscrioption =  $subscriptionsObj->getSubscriptionList();
 						foreach($subscrioption as $key => $val) {
 							$selected = "";

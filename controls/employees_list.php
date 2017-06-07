@@ -1,27 +1,27 @@
 <?php
 
-	// sukuriame darbuotojų klasės objektą
+	// creating Employee class object
 	include 'libraries/employees.class.php';
 	$employeesObj = new employees();
 
-	// sukuriame puslapiavimo klasės objektą
+	// creating paging class object
 	include 'utils/paging.class.php';
 	$paging = new paging(NUMBER_OF_ROWS_IN_PAGE);
 
 	if(!empty($removeId)) {
-		// patikriname, ar darbuotojas neturi sudarytų sutarčių
+		// patikriname, ar darbuotojas neturi sudarytų sutarčių checking if employee which is going to be deleted is not assigned to any subscriptions
 		$count = $employeesObj->getAccountsCountOfEmployee($removeId);
 
 		$removeErrorParameter = '';
 		if($count == 0) {
-			// šaliname darbuotoją
+			// deleting employee
 			$employeesObj->deleteEmployee($removeId);
 		} else {
 			// nepašalinome, nes darbuotojas sudaręs bent vieną sutartį, rodome klaidos pranešimą
 			$removeErrorParameter = '&remove_error=1';
 		}
 
-		// nukreipiame į darbuotojų puslapį
+		// redirecting to Employees page
 		header("Location: index.php?module={$module}{$removeErrorParameter}");
 		die();
 	}
@@ -54,16 +54,16 @@
 		<th></th>
 	</tr>
 	<?php
-		// suskaičiuojame bendrą įrašų kiekį
+		// counting sum of records
 		$elementCount = $employeesObj->getEmployeesListCount();
 
-		// suformuojame sąrašo puslapius
+		// generating list pages
 		$paging->process($elementCount, $pageId);
 
-		// išrenkame nurodyto puslapio darbuotojus
+		// electing selected page Employees
 		$data = $employeesObj->getEmployeesList($paging->size, $paging->first);
 
-		// suformuojame lentelę
+		// generating table
 		foreach($data as $key => $val) {
 			echo
 				"<tr>"
@@ -85,6 +85,6 @@
 </table>
 
 <?php
-	// įtraukiame puslapių šabloną
+	// including pages template
 	include 'controls/paging.php';
 ?>

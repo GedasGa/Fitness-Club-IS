@@ -1,10 +1,10 @@
 <?php
 
-	// sukuriame sutarčių klasės objektą
+	// creating Subscription class object
 	include 'libraries/subscriptions.class.php';
 	$subscrioptionsObj = new subscriptions();
 
-	// sukuriame puslapiavimo klasės objektą
+	// creating paging class object
 	include 'utils/paging.class.php';
 	$paging = new paging(NUMBER_OF_ROWS_IN_PAGE);
 
@@ -16,10 +16,10 @@
 			$subscrioptionsObj->deleteSubscription($removeId);
 
 		} else {
-			// nepašalinome, nes markė priskirta modeliui, rodome klaidos pranešimą
+			// cannot delete Fitness Club, error notification
 			$removeErrorParameter = '&remove_error=1';
 		}
-		// nukreipiame į sporto klubų puslapį
+		// redirecting to Subscriptions list page
 		header("Location: index.php?module={$module}{$removeErrorParameter}");
 		die();
 	}
@@ -36,7 +36,7 @@
 
 <?php if(isset($_GET['remove_error'])) { ?>
 	<div class="errorBox">
-		Abonementas nebuvo pašalintas, nes turi išrašytą sąskaitą.
+		Cannot delete subscription, because it has issued invoice. First delete invoice. 
 	</div>
 <?php } ?>
 

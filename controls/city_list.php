@@ -1,6 +1,6 @@
 <?php
 
-	// creating Fitness Club class object
+	// creating City class object
 	include 'libraries/city.class.php';
 	$cityObj = new city();
 

@@ -1,28 +1,28 @@
 <?php
 
-	// sukuriame sporto klubų klasės objektą
+	// creating Fitness Club class object
 	include 'libraries/gyms.class.php';
 	$gymsObj = new gyms();
 
-	// sukuriame puslapiavimo klasės objektą
+	// creating paging class object
 	include 'utils/paging.class.php';
 	$paging = new paging(NUMBER_OF_ROWS_IN_PAGE);
 
 	if(!empty($removeId)) {
-		// patikriname, ar šalinama markė nepriskirta modeliui
+		// checking, if Fitness Club which is going to be deleted is not assigned to any employee
 		$count = $gymsObj->getEmployeesCountOfGym($removeId);
 
 		$removeErrorParameter = '';
 		if($count == 0) {
-			// šaliname sporto klubą
+			// deleting Fitness Club
 			$gymsObj->deleteGym($removeId);
 			$gymsObj->deleteAddress($removeId);
 
 		} else {
-			// nepašalinome, nes markė priskirta modeliui, rodome klaidos pranešimą
+			// cannot delete Fitness Club, error notification
 			$removeErrorParameter = '&remove_error=1';
 		}
-		// nukreipiame į sporto klubų puslapį
+		// redirecting to Fitness Clubs page
 		header("Location: index.php?module={$module}{$removeErrorParameter}");
 		die();
 	}
@@ -38,7 +38,7 @@
 
 <?php if(isset($_GET['remove_error'])) { ?>
 	<div class="errorBox">
-		Sporto klubas nebuvo pašalintas. Pirmiausia pašalinkite darbuotojus.
+		Cannot delete Fitness Club, first delete all employees.
 	</div>
 <?php } ?>
 
@@ -54,16 +54,16 @@
 		<th></th>
 	</tr>
 	<?php
-		// suskaičiuojame bendrą įrašų kiekį
+		// counting sum of records
 		$elementCount = $gymsObj->getGymListCount();
 
-		// suformuojame sąrašo puslapius
+		// generating list pages
 		$paging->process($elementCount, $pageId);
 
-		// išrenkame nurodyto puslapio sporto klubus
+		//  electing selected page Fitness Clubs
 		$data = $gymsObj->getGymsList($paging->size, $paging->first);
 
-		// suformuojame lentelę
+		// generating table
 		foreach($data as $key => $val) {
 			echo
 				"<tr>"
@@ -83,6 +83,6 @@
 </table>
 
 <?php
-	// įtraukiame puslapių šabloną
+	// including pages template
 	include 'controls/paging.php';
 ?>
