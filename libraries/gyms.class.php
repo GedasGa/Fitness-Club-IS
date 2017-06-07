@@ -51,7 +51,8 @@ class gyms {
 						LEFT JOIN `ADDRESS`
 							ON `FITNESS_CLUB`.`fk_address_id`=`ADDRESS`.`id_address`
 						LEFT JOIN `CITY`
-							ON `ADDRESS`.`fk_city_id`=`CITY`.`id_city`" . $limitOffsetString;
+							ON `ADDRESS`.`fk_city_id`=`CITY`.`id_city`
+					ORDER BY `FITNESS_CLUB`.`id_fitness_club`" . $limitOffsetString;
 		$data = mysql::select($query);
 
 		return $data;

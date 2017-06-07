@@ -52,7 +52,8 @@ class subscriptions {
 						LEFT JOIN `types`
 							ON `SUBSCRIPTION`.`type`=`types`.`id_type`
 						LEFT JOIN `CUSTOMER`
-							ON `SUBSCRIPTION`.`fk_customer_id`=`CUSTOMER`.`personal_id`" . $limitOffsetString;
+							ON `SUBSCRIPTION`.`fk_customer_id`=`CUSTOMER`.`personal_id`
+					ORDER BY `SUBSCRIPTION`.`id_subscription`" . $limitOffsetString;
 		$data = mysql::select($query);
 
 		return $data;

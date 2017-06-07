@@ -36,8 +36,8 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 	<div id="header">
 		<ul id="reportInfo">
 			<li class="title">Invoices report</li>
-			<li>Date issued: <span><?php echo date("Y-m-d"); ?></span></li>
-			<li>Invoices period:
+			<li style="text-align:left">Date issued: <span><?php echo date("Y-m-d"); ?></span></li>
+			<li style="text-align:left">Invoices period:
 				<span>
 					<?php
 						if(!empty($data['dateFrom'])) {
@@ -126,7 +126,7 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 							</tr>
 
 							<tr class="aggregate">
-							<td class="label" colspan="3">Total amount:</td>
+							<td class="label" colspan="3">Total price (amount payed):</td>
 							<td class="border"><?php echo $AccountSumData[0]['invoices_amount']; ?> &euro;</td>
 							<td class="border">
 								<?php

@@ -36,8 +36,8 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 	<div id="header">
 		<ul id="reportInfo">
 			<li class="title">Vists report</li>
-			<li>Date Issued: <span><?php echo date("Y-m-d"); ?></span></li>
-			<li>Visits Period:
+			<li style="text-align:left">Date Issued: <span><?php echo date("Y-m-d"); ?></span></li>
+			<li style="text-align:left">Visits Period:
 				<span>
 					<?php
 						if(!empty($data['dateFrom'])) {

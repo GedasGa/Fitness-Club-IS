@@ -44,7 +44,7 @@
 	<tr>
 		<th>ID</th>
 		<th>Valid from</th>
-		<th>till</th>
+		<th>Valid till</th>
 		<th>Price</th>
 		<th>Type</th>
 		<th>Customer</th>
@@ -79,7 +79,7 @@
 	?>
 </table>
 
-<?php 
+<?php
 //including pages template
 	include 'controls/paging.php';
 ?>

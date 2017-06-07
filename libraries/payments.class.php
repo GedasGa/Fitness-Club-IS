@@ -58,7 +58,8 @@ class payments {
 						LEFT JOIN `INVOICE`
 							ON `PAYMENT`.`fk_invoice_id`=`INVOICE`.`number`
 						LEFT JOIN `EMPLOYEE`
-							ON `INVOICE`.`fk_employee_id`=`EMPLOYEE`.`personal_id`" . $limitOffsetString;
+							ON `INVOICE`.`fk_employee_id`=`EMPLOYEE`.`personal_id`
+					ORDER BY `PAYMENT`.`id_payment`" . $limitOffsetString;
 		$data = mysql::select($query);
 
 		return $data;
@@ -255,7 +256,8 @@ class payments {
 						JOIN `CUSTOMER`
 							ON `PAYMENT`.`fk_customer_id`=`CUSTOMER`.`personal_id`
 						JOIN `EMPLOYEE`
-							ON `INVOICE`.`fk_employee_id`=`EMPLOYEE`.`personal_id`" . $limitOffsetString;
+							ON `INVOICE`.`fk_employee_id`=`EMPLOYEE`.`personal_id`
+					ORDER BY `INVOICE`.`number`" . $limitOffsetString;
 		$data = mysql::select($query);
 
 		return $data;
@@ -367,7 +369,7 @@ class payments {
 		return $data;
 	}
 
-	public function getAccountSum($dateom, $dateTo) {
+	public function getAccountSum($dateFrom, $dateTo) {
 		$whereClauseString = "";
 		if(!empty($dateFrom)) {
 			$whereClauseString .= " WHERE `INVOICE`.`invoice_date`>='{$dateFrom}'";

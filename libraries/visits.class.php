@@ -51,7 +51,8 @@ class visits {
 						LEFT JOIN `CUSTOMER`
 							ON `VISIT`.`fk_customer_id`=`CUSTOMER`.`personal_id`
 						LEFT JOIN `FITNESS_CLUB`
-							ON `VISIT`.`fk_fitness_club_id`=`FITNESS_CLUB`.`id_fitness_club`" . $limitOffsetString;
+							ON `VISIT`.`fk_fitness_club_id`=`FITNESS_CLUB`.`id_fitness_club`
+					ORDER BY `VISIT`.`id_visit`" . $limitOffsetString;
 		$data = mysql::select($query);
 
 		return $data;

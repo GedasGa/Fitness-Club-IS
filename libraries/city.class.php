@@ -43,7 +43,8 @@ class city {
 
 		$query = "  SELECT `CITY`.`id_city`,
 						   `CITY`.`city`
-					FROM `CITY`" . $limitOffsetString;
+					FROM `CITY`
+					ORDER BY `CITY`.`id_city`" . $limitOffsetString;
 		$data = mysql::select($query);
 
 		return $data;
