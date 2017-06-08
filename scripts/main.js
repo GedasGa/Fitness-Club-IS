@@ -52,12 +52,12 @@ $(window).ready(function (){
     }
 
     // Time and date plugins settings
-    $.datetimepicker.setLocale('lt');
+    $.datetimepicker.setLocale('en');
     $('.datetime').datetimepicker({
         format:'Y-m-d H:i',
         dayOfWeekStart : 1,
-        startDate: '2016-01-01',
-        defaultDate: '2016-01-01'
+        startDate: '2017-01-01',
+        defaultDate: '2017-01-01'
     });
 
     $('.date').datetimepicker({
@@ -65,13 +65,13 @@ $(window).ready(function (){
         timepicker:false,
         format:'Y-m-d',
         formatDate:'Y-m-d',
-        defaultDate: '2016-01-01'
+        defaultDate: '2017-01-01'
     });
 
 });
 
 function showConfirmDialog(module, removeId) {
-    var r = confirm("Ar tikrai norite pašalinti!");
+    var r = confirm("Are you sure you want to delete the record?");
     if (r === true) {
         window.location.replace("index.php?module=" + module + "&remove=" + removeId);
     }
