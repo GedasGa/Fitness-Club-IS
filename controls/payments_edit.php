@@ -112,16 +112,21 @@
 	}
 
 ?>
-<ul id="pagePath">
-	<li><a href="index.php">Home Page</a></li>
-	<li><a href="index.php?module=<?php echo $module; ?>">Payments</a></li>
-	<li><?php if(!empty($id)) echo "Edit invoice"; else echo "Add invoice"; ?></li>
+<ul class="list-inline">
+	<li class="list-inline-item"><i class="fa fa-home" aria-hidden="true"></i><a href="index.php"> Home Page</a></li>
+	<li class="list-inline-item"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+	<li class="list-inline-item"><a href="index.php?module=<?php echo $module; ?>">Payments</a></li>
+	<li class="list-inline-item"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+	<li class="list-inline-item"><?php if(!empty($id)) echo "Edit invoice"; else echo "Add invoice"; ?></li>
 </ul>
 <div class="float-clear"></div>
 <div id="formContainer">
 	<?php if($formErrors != null) { ?>
-		<div class="errorBox">
-			Fill in all required fields in right format:
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+			<strong>Fill in all required fields in right format:</strong>
 			<?php
 				echo $formErrors;
 			?>
@@ -129,95 +134,98 @@
 	<?php } ?>
 	<form action="" method="post">
 		<fieldset>
-			<legend>Invoice information</legend>
-			<p>
-				<?php if(!isset($fields['editing'])) { ?>
+			<legend class="bg-info" align="center">Invoice information</legend>
+			<div class="col-10" style="margin: 0 auto;">
+			<div class="form-group">
+				<div class="col-10">
 					<label class="field" for="number">Number<?php echo in_array('number', $required) ? '<span> *</span>' : ''; ?></label>
-					<input type="text" id="number" name="number" class="textbox-70" value="<?php echo isset($fieldsA['number']) ? $fieldsA['number'] : ''; ?>">
-				<?php } else { ?>
-						<label class="field" for="number">Number</label>
-						<span class="input-value"><?php echo $fieldsA['number']; ?></span>
-						<input type="hidden" name="editing" value="1" />
-						<input type="hidden" name="number" value="<?php echo $fieldsA['number']; ?>" />
-				<?php } ?>
-			</p>
-			<p>
+					<?php if(!isset($fields['editing'])) { ?>
+						<input type="text" id="number" name="number" class="form-control" placeholder="Enter invoice number" value="<?php echo isset($fieldsA['number']) ? $fieldsA['number'] : ''; ?>">
+					<?php } else { ?>
+							<input type="hidden" name="editing" value="1" />
+							<input type="number" name="number" class="form-control" value="<?php echo $fieldsA['number']; ?>" disabled/>
+					<?php } ?>
+				</div>
 				<label class="field" for="invoice_date">Invoice Date<?php echo in_array('invoice_date', $required) ? '<span> *</span>' : ''; ?></label>
-				<input type="text" id="invoice_date" name="invoice_date" class="date textbox-70" value="<?php echo isset($fieldsA['invoice_date']) ? $fieldsA['invoice_date'] : ''; ?>">
-			</p>
-			<p>
+				<div class="col-10">
+					<input type="date" id="invoice_date" name="invoice_date" class="form-control" value="<?php echo isset($fieldsA['invoice_date']) ? $fieldsA['invoice_date'] : ''; ?>">
+				</div>
 				<label class="field" for="invoice_amount">Amount<?php echo in_array('invoice_amount', $required) ? '<span> *</span>' : ''; ?></label>
-				<input type="text" id="invoice_amount" name="invoice_amount" class="textbox-70" value="<?php echo isset($fieldsA['invoice_amount']) ? $fieldsA['invoice_amount'] : ''; ?>"> <span class="units">&euro;</span>
-			</p>
-			<p>
+				<div class="input-group col-10">
+					<input type="number" step="0.01" id="invoice_amount" name="invoice_amount" class="form-control" placeholder="Enter price" value="<?php echo isset($fieldsA['invoice_amount']) ? $fieldsA['invoice_amount'] : ''; ?>">
+					<span class="input-group-addon">$</span>
+				</div>
 				<label class="field" for="fk_employee_id">Employee<?php echo in_array('fk_employee_id', $required) ? '<span> *</span>' : ''; ?></label>
-				<select id="fk_employee_id" name="fk_employee_id">
-					<option value="">---------------</option>
-					<?php
-						// electing all Employees
-						$data = $employeesObj->getEmployeesList();
-						foreach($data as $key => $val) {
-							$selected = "";
-							if(isset($fieldsA['fk_employee_id']) && $fieldsA['fk_employee_id'] == $val['personal_id']) {
-								$selected = " selected='selected'";
+				<div class="col-10">
+					<select id="fk_employee_id" class="form-control" name="fk_employee_id">
+						<option value="">Select employee</option>
+						<?php
+							// electing all Employees
+							$data = $employeesObj->getEmployeesList();
+							foreach($data as $key => $val) {
+								$selected = "";
+								if(isset($fieldsA['fk_employee_id']) && $fieldsA['fk_employee_id'] == $val['personal_id']) {
+									$selected = " selected='selected'";
+								}
+								echo "<option{$selected} value='{$val['personal_id']}'>{$val['name']} {$val['surname']}</option>";
 							}
-							echo "<option{$selected} value='{$val['personal_id']}'>{$val['name']} {$val['surname']}</option>";
-						}
-					?>
-				</select>
-			</p>
-			<p>
+						?>
+					</select>
+				</div>
 				<label class="field" for="fk_customer_id">Customer<?php echo in_array('fk_customer_id', $required) ? '<span> *</span>' : ''; ?></label>
-				<select id="fk_customer_id" name="fk_customer_id">
-					<option value="">---------------</option>
-					<?php
-						// electing all Customers
-						$data = $customersObj->getCustomersList();
-						foreach($data as $key => $val) {
-							$selected = "";
-							if(isset($fieldsA['fk_customer_id']) && $fieldsA['fk_customer_id'] == $val['personal_id']) {
-								$selected = " selected='selected'";
+				<div class="col-10">
+					<select id="fk_customer_id" class="form-control" name="fk_customer_id">
+						<option value="">Select customer</option>
+						<?php
+							// selecting all Customers
+							$data = $customersObj->getCustomersList();
+							foreach($data as $key => $val) {
+								$selected = "";
+								if(isset($fieldsA['fk_customer_id']) && $fieldsA['fk_customer_id'] == $val['personal_id']) {
+									$selected = " selected='selected'";
+								}
+								echo "<option{$selected} value='{$val['personal_id']}'>{$val['name']} {$val['surname']}</option>";
 							}
-							echo "<option{$selected} value='{$val['personal_id']}'>{$val['name']} {$val['surname']}</option>";
-						}
-					?>
-				</select>
-			</p>
-			<p>
+						?>
+					</select>
+				</div>
 				<label class="field" for="fk_subscription_id">Subscrioption<?php echo in_array('fk_subscription_id', $required) ? '<span> *</span>' : ''; ?></label>
-				<select id="fk_subscription_id" name="fk_subscription_id">
-					<option value="">---------------</option>
-					<?php
-						// electing all subscriptions
-						$subscrioption =  $subscriptionsObj->getSubscriptionList();
-						foreach($subscrioption as $key => $val) {
-							$selected = "";
-							if(isset($fieldsA['fk_subscription_id']) && $fieldsA['fk_subscription_id'] == $val['id_subscription']) {
-								$selected = " selected='selected'";
+				<div class="col-10">
+					<select id="fk_subscription_id" class="form-control" name="fk_subscription_id">
+						<option value="">Select subscription</option>
+						<?php
+							// selecting all subscriptions
+							$subscrioption =  $subscriptionsObj->getSubscriptionList();
+							foreach($subscrioption as $key => $val) {
+								$selected = "";
+								if(isset($fieldsA['fk_subscription_id']) && $fieldsA['fk_subscription_id'] == $val['id_subscription']) {
+									$selected = " selected='selected'";
+								}
+								echo "<option{$selected} value='{$val['id_subscription']}'> ID-{$val['id_subscription']} / {$val['price']} eu</option>";
 							}
-							echo "<option{$selected} value='{$val['id_subscription']}'> ID-{$val['id_subscription']} / {$val['price']} eu</option>";
-						}
-					?>
-				</select>
-			</p>
+						?>
+					</select>
+				</div>
+			</div>
+			</div>
 		</fieldset>
 
 		<fieldset>
-			<legend>Payment information</legend>
-
+			<legend align="center">Payment information</legend>
+			<div class="col-10" style="margin: 0 auto;">
 			<div class="childRowContainer">
-				<div class="labelLeft<?php if(empty($AccountPayment) || sizeof($AccountPayment) == 0) echo ' hidden'; ?>">Date</div>
-				<div class="labelRight<?php if(empty($AccountPayment) || sizeof($AccountPayment) == 0) echo ' hidden'; ?>">Amount</div>
-				<div class="float-clear"></div>
+				<div class="row col-10">
+					<div class="col-4<?php if(empty($AccountPayment) || sizeof($AccountPayment) == 0) echo ' hidden'; ?>">Date</div>
+					<div class="col-4<?php if(empty($AccountPayment) || sizeof($AccountPayment) == 0) echo ' hidden'; ?>">Amount</div>
+				</div>
 				<?php
 					if(empty($AccountPayment) || sizeof($AccountPayment) == 0) {
 				?>
 
-					<div class="childRow hidden">
-						<input type="text" name="NewPayment[payment_date][]" value="" class="textbox-100" disabled="disabled"/>
-						<input type="text" name="NewPayment[payment_amount][]" value="" class="textbox-100" disabled="disabled" />
+					<div class="childRow row col-10 hidden">
+						<input type="text" class="col-4 form-control" name="NewPayment[payment_date][]" value="" class="textbox-100" disabled="disabled"/>
+						<input type="text" class="col-4 form-control" name="NewPayment[payment_amount][]" value="" class="textbox-100" disabled="disabled" />
 						<input type="hidden" class="isDisabledForEditing" name="neaktyvus[]" value="0" />
-
 					</div>
 					<div class="float-clear"></div>
 
@@ -226,9 +234,9 @@
 						foreach($AccountPayment as $key => $val) {
 				?>
 
-                                    <div class="childRow">
-                                        <input type="text" name="NewPayment[payment_date][]" value="<?php echo $val['payment_date']; ?>" class="textbox-100" disabled/>
-                                        <input type="text" name="NewPayment[payment_amount][]" value="<?php echo $val['payment_amount']; ?>" class="textbox-100" disabled/>
+                                    <div class="childRow row col-10">
+                                        <input type="text" class="col-4 form-control" name="NewPayment[payment_date][]" value="<?php echo $val['payment_date']; ?>" class="textbox-100" disabled/>
+                                        <input type="text" class="col-4 form-control" name="NewPayment[payment_amount][]" value="<?php echo $val['payment_amount']; ?>" class="textbox-100" disabled/>
                                     </div>
                                     <div class="float-clear"></div>
 				<?php
@@ -236,11 +244,16 @@
 					}
 				?>
 			</div>
-			<p id="newItemButtonContainer">
-				<a href="#" title="" class="addChild">Add</a>
-			</p>
-		<p>
-			<input type="submit" class="submit" name="submit" value="Save">
-		</p>
+			<div class="col-10" id="newItemButtonContainer">
+					<a href="#" title="" class="btn btn-success addChild">Add</a>
+			</div>
+		</fieldset>
+		</br>
+			<div class="form-group">
+				<div class="col-10">
+					<input type="submit" class="btn btn-primary" name="submit" value="Save"> <small class="text-muted">* please, fill in all the blanks</small>
+				</div>
+			</div>
 	</form>
+</div>
 </div>

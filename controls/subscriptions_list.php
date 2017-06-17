@@ -24,61 +24,69 @@
 		die();
 	}
 ?>
-<ul id="pagePath">
-	<li><a href="index.php">Home Page</a></li>
-	<li>Subscriptions</li>
-</ul>
-<div id="actions">
-	<a href="report.php?id=3" target="_blank">Subscriptions report</a>
-	<a href='index.php?module=<?php echo $module; ?>&action=new'>Add subscriptions</a>
+<div class="row">
+	<ul class="list-inline">
+		<li class="list-inline-item"><i class="fa fa-home" aria-hidden="true"></i><a href="index.php"> Home Page</a></li>
+		<li class="list-inline-item"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+		<li class="list-inline-item">Subscriptions</li>
+	</ul>
 </div>
+<ul class="list-inline text-right">
+	<li class="list-inline-item"><a class="btn btn-info btn-sm" href="report.php?id=1" target="_blank"><i class="fa fa-list-alt" aria-hidden="true"></i> Subscriptions report</a></li>
+	<li class="list-inline-item"><a class="btn btn-success btn-sm" href='index.php?module=<?php echo $module; ?>&action=new'><i class="fa fa-plus-circle" aria-hidden="true"></i> Add subscription</a></li>
+</ul>
 <div class="float-clear"></div>
 
 <?php if(isset($_GET['remove_error'])) { ?>
-	<div class="errorBox">
-		Cannot delete subscription, because it has issued invoice. First delete invoice.
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<strong>Cannot delete subscription, because it has issued invoice. First delete invoice.</strong>
 	</div>
 <?php } ?>
+<div class="container-fluid">
+	<table class="table table-bordered table-striped table-hover">
+		<thead class="thead-inverse">
+			<tr>
+				<th>ID</th>
+				<th>Valid from</th>
+				<th>Valid till</th>
+				<th>Price</th>
+				<th>Type</th>
+				<th>Customer</th>
+				<th style="text-align: center;">Delete/Edit</th>
+			</tr>
+		</thead>
+		<?php
+			// counting sum of records
+			$elementCount = $subscrioptionsObj->getSubscriptionListCount();
 
-<table>
-	<tr>
-		<th>ID</th>
-		<th>Valid from</th>
-		<th>Valid till</th>
-		<th>Price</th>
-		<th>Type</th>
-		<th>Customer</th>
-		<th></th>
-	</tr>
-	<?php
-		// counting sum of records
-		$elementCount = $subscrioptionsObj->getSubscriptionListCount();
+			// generating list pages
+			$paging->process($elementCount, $pageId);
 
-		// generating list pages
-		$paging->process($elementCount, $pageId);
+			// electing selected page Subscriptions
+			$data = $subscrioptionsObj->getSubscriptionList($paging->size, $paging->first);
 
-		// electing selected page Subscriptions
-		$data = $subscrioptionsObj->getSubscriptionList($paging->size, $paging->first);
-
-		// generating table
-		foreach($data as $key => $val) {
-			echo
-				"<tr>"
-					. "<td>{$val['id_subscription']}</td>"
-					. "<td>{$val['valid_from']}</td>"
-					. "<td>{$val['valid_till']}</td>"
-					. "<td>{$val['price']}</td>"
-					. "<td>{$val['type']}</td>"
-					. "<td>{$val['name']} {$val['surname']}</td>"
-					. "<td>"
-						. "<a href='#' onclick='showConfirmDialog(\"{$module}\", \"{$val['id_subscription']}\"); return false;' title=''>delete</a>&nbsp;"
-						. "<a href='index.php?module={$module}&id={$val['id_subscription']}' title=''>edit</a>"
-					. "</td>"
-				. "</tr>";
-		}
-	?>
-</table>
-
+			// generating table
+			foreach($data as $key => $val) {
+				echo
+					"<tr>"
+						. "<td>{$val['id_subscription']}</td>"
+						. "<td>{$val['valid_from']}</td>"
+						. "<td>{$val['valid_till']}</td>"
+						. "<td>{$val['price']}</td>"
+						. "<td>{$val['type']}</td>"
+						. "<td>{$val['name']} {$val['surname']}</td>"
+						. "<td style='text-align: center;'>"
+							. "<a class='btn btn-danger btn-sm' href='#' onclick='showConfirmDialog(\"{$module}\", \"{$val['id_subscription']}\"); return false;' title=''><i class='fa fa-trash' aria-hidden='true'></i></a>&nbsp;"
+							. "<a class='btn btn-warning btn-sm' href='index.php?module={$module}&id={$val['id_subscription']}' title=''><i class='fa fa-pencil' aria-hidden='true'></i></a>"
+						. "</td>"
+					. "</tr>";
+			}
+		?>
+	</table>
+</div>
 <?php
 //including pages template
 	include 'controls/paging.php';

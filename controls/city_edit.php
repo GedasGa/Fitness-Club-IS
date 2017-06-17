@@ -56,34 +56,46 @@
 		}
 	}
 ?>
-<ul id="pagePath">
-	<li><a href="index.php">Home Page</a></li>
-	<li><a href="index.php?module=<?php echo $module; ?>">City</a></li>
-	<li><?php if(!empty($id)) echo "Edit city"; else echo "Add city"; ?></li>
+<ul class="list-inline">
+	<li class="list-inline-item"><i class="fa fa-home" aria-hidden="true"></i><a href="index.php"> Home Page</a></li>
+	<li class="list-inline-item"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+	<li class="list-inline-item"><a href="index.php?module=<?php echo $module; ?>">Cities</a></li>
+	<li class="list-inline-item"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+	<li class="list-inline-item"><?php if(!empty($id)) echo "Edit city"; else echo "Add city"; ?></li>
 </ul>
 <div class="float-clear"></div>
 <div id="formContainer">
 	<?php if($formErrors != null) { ?>
-		<div class="errorBox">
-			Fill in all required fields in right format:
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+			<strong>Fill in all required fields in right format:</strong>
 			<?php
 				echo $formErrors;
 			?>
 		</div>
+
 	<?php } ?>
-	<form action="" method="post">
+	<form action="" method="post" style="margin: 0 auto;">
 		<fieldset>
-			<legend>City information</legend>
-			<p>
-				<label class="field" for="city">Name<?php echo in_array('city', $required) ? '<span> *</span>' : ''; ?></label>
-				<input type="text" id="city" name="city" class="textbox-255" value="<?php echo isset($fields['city']) ? $fields['city'] : ''; ?>">
-				<?php if(key_exists('city', $maxLengths)) echo "<span class='max-len'>(max {$maxLengths['city']} symb.)</span>"; ?>
-			</p>
+			<legend class="bg-info" align="center">City information</legend>
+			<div class="col-10" style="margin: 0 auto;">
+			<div class="form-group">
+				<label for="city">Name<?php echo in_array('city', $required) ? '<span> *</span>' : ''; ?></label>
+					<div class="col-10">
+						<input type="text" id="city" name="city" class="form-control" placeholder="Enter city name" value="<?php echo isset($fields['city']) ? $fields['city'] : ""; ?>">
+						<small id="nameHelp" class="form-text text-muted"><?php if(key_exists('city', $maxLengths)) echo "<span class='max-len'>(max {$maxLengths['city']} symb.)</span>"; ?></small>
+					</div>
+			</div>
+			</div>
 		</fieldset>
-		<p class="required-note">* please, fill in all the blanks</p>
-		<p>
-			<input type="submit" class="submit" name="submit" value="Save">
-		</p>
+		</br>
+		<div class="form-group">
+		 <div class="col-sm-10">
+			 <input type="submit" class="btn btn-primary" name="submit" value="Save"><small class="text-muted">* please, fill in all the blanks</small>
+		 </div>
+	 </div>
 		<?php if(isset($fields['id_city'])) { ?>
 			<input type="hidden" name="id_city" value="<?php echo $fields['id_city']; ?>" />
 		<?php } ?>
