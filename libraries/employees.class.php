@@ -146,10 +146,10 @@ class employees {
 	 * @return type
 	 */
 	public function getAccountsCountOfEmployee($id) {
-		$query = "  SELECT COUNT(`PAYMENT`.`nr`) AS `count`
+		$query = "  SELECT COUNT(`INVOICE`.`number`) AS `count`
 					FROM `EMPLOYEE`
-						INNER JOIN `PAYMENT`
-							ON `EMPLOYEE`.`personal_id`=`PAYMENT`.`fk_EMPLOYEE_ID`
+						INNER JOIN `INVOICE`
+							ON `EMPLOYEE`.`personal_id`=`INVOICE`.`fk_employee_id`
 					WHERE `EMPLOYEE`.`personal_id`='{$id}'";
 		$data = mysql::select($query);
 

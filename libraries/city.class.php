@@ -121,7 +121,7 @@ class city {
 	public function getAddressCountOfCity($id) {
 		$query = "  SELECT COUNT(`ADDRESS`.`id_address`) AS `count`
 					FROM `CITY`
-						INNER JOIN `ADRESAS`
+						INNER JOIN `ADDRESS`
 							ON `CITY`.`id_city`=`ADDRESS`.`fk_city_id`
 					WHERE `CITY`.`id_city`='{$id}'";
 		$data = mysql::select($query);

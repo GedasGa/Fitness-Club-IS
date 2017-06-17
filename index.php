@@ -39,38 +39,80 @@
 	// set, how many records will be showed in elements list
 	define('NUMBER_OF_ROWS_IN_PAGE', 10);
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta name="robots" content="noindex">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="../../favicon.ico">
+
 		<title>Fitness Clubs IS</title>
-		<link rel="stylesheet" type="text/css" href="scripts/datetimepicker/jquery.datetimepicker.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="style/main.css" media="screen" />
-		<script type="text/javascript" src="scripts/jquery-1.12.0.min.js"></script>
-		<script type="text/javascript" src="scripts/datetimepicker/jquery.datetimepicker.full.min.js"></script>
-		<script type="text/javascript" src="scripts/main.js"></script>
+
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+		integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="utils/style/navbar.css" rel="stylesheet">
 	</head>
 	<body>
-		<div id="body">
-			<div id="header">
-				<h3 id="slogan"><a href="index.php">Fitness Clubs IS</h3>
-			</div>
-				<div id="content">
-					<div id="topMenu">
-						<ul class="float-left">
-							<li><a href="index.php?module=subscriptions" title="Subscriptions"<?php if($module == 'subscriptions') { echo 'class="active"'; } ?>>Subscriptions</a></li>
-							<li><a href="index.php?module=visits" title="Visits"<?php if($module == 'visits') { echo 'class="active"'; } ?>>Visits</a></li>
-							<li><a href="index.php?module=payments" title="Payments"<?php if($module == 'payments') { echo 'class="active"'; } ?>>Payments</a></li>
-							<li><a href="index.php?module=customers" title="Customers"<?php if($module == 'customers') { echo 'class="active"'; } ?>>Customers</a></li>
-							<li><a href="index.php?module=employees" title="Employees"<?php if($module == 'employees') { echo 'class="active"'; } ?>>Employees</a></li>
-							<li><a href="index.php?module=gyms" title="Fitness Clubs"<?php if($module == 'gyms') { echo 'class="active"'; } ?>>Fitness Clubs</a></li>
-							<li><a href="index.php?module=city" title="Cities"<?php if($module == 'city') { echo 'class="active"'; } ?>>Cities</a></li>
+		<div class="container">
+      <nav class="navbar navbar-inverse bg-inverse rounded navbar-toggleable-md">
+        	<a class="navbar-brand" href="index.php">Fitness Clubs IS</a>
+
+        <div class="collapse navbar-collapse" id="containerNavbar">
+          <ul class="navbar-nav mr-auto">
+						<li class="nav-item">
+							<a href="index.php?module=subscriptions" title="Subscriptions"
+							<?php if($module == 'subscriptions') { echo 'class="nav-link active"'; }
+										else { echo 'class="nav-link"'; }?>>Subscriptions</a>
+						</li>
+						<li class="nav-item">
+							<a href="index.php?module=visits" title="Visits"
+							<?php if($module == 'visits') { echo 'class="nav-link active"'; }
+										else { echo 'class="nav-link"'; }?>>Visits</a>
+						</li>
+						<li class="nav-item">
+							<a href="index.php?module=payments" title="Payments"
+							<?php if($module == 'payments') { echo 'class="nav-link active"'; }
+										else { echo 'class="nav-link"'; }?>>Payments</a>
+
+						</li>
+						<li class="nav-item">
+							<a href="index.php?module=customers" title="Customers"
+							<?php if($module == 'customers') { echo 'class="nav-link active"'; }
+										else { echo 'class="nav-link"'; }?>>Customers</a>
+						</li>
+						<li class="nav-item">
+							<a href="index.php?module=employees" title="Employees"
+							<?php if($module == 'employees') { echo 'class="nav-link active"'; }
+										else { echo 'class="nav-link"'; }?>>Employees</a>
+						</li>
+						<li class="nav-item">
+							<a href="index.php?module=gyms" title="Fitness Clubs"
+							<?php if($module == 'gyms') { echo 'class="nav-link active"'; }
+										else { echo 'class="nav-link"'; }?>>Gyms</a>
+						</li>
+						<li class="nav-item">
+							<a href="index.php?module=city" title="Cities"
+							<?php if($module == 'city') { echo 'class="nav-link active"'; }
+										else { echo 'class="nav-link"'; }?>>Cities</a>
+						</li>
 						</ul>
-						<ul class="float-right">
-							<li><a href="index.php?module=report" title="Reports"<?php if($module == 'report') { echo 'class="active"'; } ?>>Reports</a></li>
+						<ul class="nav navbar-nav ml-auto">
+							<li class="nav-item">
+								<a href="index.php?module=report" title="Reports"
+								<?php if($module == 'report') { echo 'class="nav-link active"'; }
+											else { echo 'class="nav-link"'; }?>>Reports</a>
+							</li>
 						</ul>
-					</div>
+        </div>
+      </nav>
+
+      <div class="jumbotron">
+        <div class="col-sm-12 mr-auto">
 					<div id="contentMain">
 						<?php
 							if(!empty($module)) {
@@ -83,10 +125,21 @@
 						?>
 						<div class="float-clear"></div>
 					</div>
-				</div>
-			<div id="footer">
+        </div>
+      </div>
+    </div>
 
-			</div>
-		</div>
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+		integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+		integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+		integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+		<script src="scripts/main.js"></script>
 	</body>
 </html>

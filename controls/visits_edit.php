@@ -1,3 +1,20 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="../../favicon.ico">
+
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+		integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="utils/style/navbar.css" rel="stylesheet">
+	</head>
+
 <?php
 
 	include 'libraries/visits.class.php';
@@ -69,16 +86,21 @@
 		}
 	}
 ?>
-<ul id="pagePath">
-	<li><a href="index.php">Home Page</a></li>
-	<li><a href="index.php?module=<?php echo $module; ?>">Visits</a></li>
-	<li><?php if(!empty($id)) echo "Edit visit"; else echo "Add visit"; ?></li>
+<ul class="list-inline">
+	<li class="list-inline-item"><i class="fa fa-home" aria-hidden="true"></i><a href="index.php"> Home Page</a></li>
+	<li class="list-inline-item"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+	<li class="list-inline-item"><a href="index.php?module=<?php echo $module; ?>">Visits</a></li>
+	<li class="list-inline-item"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+	<li class="list-inline-item"><?php if(!empty($id)) echo "Edit visit"; else echo "Add visit"; ?></li>
 </ul>
 <div class="float-clear"></div>
 <div id="formContainer">
 	<?php if($formErrors != null) { ?>
-		<div class="errorBox">
-			Fill in all required fields in right format:
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+			<strong>Fill in all required fields in right format:</strong>
 			<?php
 				echo $formErrors;
 			?>
@@ -86,55 +108,59 @@
 	<?php } ?>
 	<form action="" method="post">
 		<fieldset>
-			<legend>Visit information</legend>
-			<p>
+			<legend class="bg-info" align="center">Visit information</legend>
+			<div class="col-10" style="margin: 0 auto;">
 				<label class="field" for="visit_date">Visit date<?php echo in_array('visit_date', $required) ? '<span> *</span>' : ''; ?></label>
-				<input type="text" id="visit_date" name="visit_date" class="textbox-70 date" value="<?php echo isset($fields['visit_date']) ? $fields['visit_date'] : ''; ?>" />
-			</p>
-			<p>
+				<div class="col-10">
+					<input type="date" id="visit_date" name="visit_date" class="form-control" value="<?php echo isset($fields['visit_date']) ? $fields['visit_date'] : ''; ?>" />
+				</div>
 				<label class="field" for="time">Visit time<?php echo in_array('visit_date', $required) ? '<span> *</span>' : ''; ?></label>
-				<input type="text" id="time" name="time" class="textbox-70" value="<?php echo isset($fields['time']) ? $fields['time'] : ''; ?>" />
-				<?php if(key_exists('time', $maxLengths)) echo "<span class='max-len'>(hh:mm:ss)</span>"; ?>
-			</p>
-			<p>
+				<div class="col-10">
+					<input type="time" id="time" name="time" class="form-control" value="<?php echo isset($fields['time']) ? $fields['time'] : ''; ?>" />
+				<small id="nameHelp" class="form-text text-muted"><?php if(key_exists('time', $maxLengths)) echo "<span class='max-len'>(hh:mm:ss)</span>"; ?></small>
+				</div>
 				<label class="field" for="fk_customer_id">Customer<?php echo in_array('fk_customer_id', $required) ? '<span> *</span>' : ''; ?></label>
-				<select id="fk_customer_id" name="fk_customer_id">
-					<option value="-1">Select customer</option>
-					<?php
-						// electing all customers
-						$customers = $customersObj->getCustomersList();
-						foreach($customers as $key => $val) {
-							$selected = "";
-							if(isset($fields['fk_customer_id']) && $fields['fk_customer_id'] == $val['personal_id']) {
-								$selected = " selected='selected'";
+				<div class="col-10">
+					<select id="fk_customer_id" class="form-control" name="fk_customer_id">
+						<option value="-1">Select customer</option>
+						<?php
+							// electing all customers
+							$customers = $customersObj->getCustomersList();
+							foreach($customers as $key => $val) {
+								$selected = "";
+								if(isset($fields['fk_customer_id']) && $fields['fk_customer_id'] == $val['personal_id']) {
+									$selected = " selected='selected'";
+								}
+								echo "<option{$selected} value='{$val['personal_id']}'>{$val['name']} {$val['surname']}</option>";
 							}
-							echo "<option{$selected} value='{$val['personal_id']}'>{$val['name']} {$val['surname']}</option>";
-						}
-					?>
-				</select>
-			</p>
-			<p>
+						?>
+					</select>
+				</div>
 				<label class="field" for="fk_fitness_club_id">Fitness Club<?php echo in_array('fk_fitness_club_id', $required) ? '<span> *</span>' : ''; ?></label>
-				<select id="fk_fitness_club_id" name="fk_fitness_club_id">
-					<option value="-1">Select fitness club</option>
-					<?php
-						// electing all Fitness Clubs
-						$gyms = $gymsObj->getGymsList();
-						foreach($gyms as $key => $val) {
-							$selected = "";
-							if(isset($fields['fk_fitness_club_id']) && $fields['fk_fitness_club_id'] == $val['id_fitness_club']) {
-								$selected = " selected='selected'";
+				<div class="col-10">
+					<select id="fk_fitness_club_id" class="form-control" name="fk_fitness_club_id">
+						<option value="-1">Select fitness club</option>
+						<?php
+							// electing all Fitness Clubs
+							$gyms = $gymsObj->getGymsList();
+							foreach($gyms as $key => $val) {
+								$selected = "";
+								if(isset($fields['fk_fitness_club_id']) && $fields['fk_fitness_club_id'] == $val['id_fitness_club']) {
+									$selected = " selected='selected'";
+								}
+								echo "<option{$selected} value='{$val['id_fitness_club']}'>{$val['name']}</option>";
 							}
-							echo "<option{$selected} value='{$val['id_fitness_club']}'>{$val['name']}</option>";
-						}
-					?>
-				</select>
-			</p>
+						?>
+					</select>
+				</div>
+			</div>
 		</fieldset>
-		<p class="required-note">* please, fill in all the blanks</p>
-		<p>
-			<input type="submit" class="submit" name="submit" value="Save">
-		</p>
+		</br>
+		<div class="form-group">
+			<div class="col-10">
+				<input type="submit" class="btn btn-primary" name="submit" value="Save"><small class="text-muted">* please, fill in all the blanks</p>
+			</div>
+		</div>
 		<?php if(isset($fields['id_visit'])) { ?>
 			<input type="hidden" name="id_visit" value="<?php echo $fields['id_visit']; ?>" />
 		<?php } ?>
