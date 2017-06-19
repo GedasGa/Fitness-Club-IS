@@ -106,86 +106,104 @@
 		}
 ?>
 
-<ul id="pagePath">
-	<li><a href="index.php">Home Page</a></li>
-	<li><a href="index.php?module=<?php echo $module; ?>">Fitness Clubs</a></li>
-	<li><?php if(!empty($id)) echo "Edit Fitness Club"; else echo "Add Fitness Club"; ?></li>
+<ul class="list-inline">
+	<li class="list-inline-item"><i class="fa fa-home" aria-hidden="true"></i><a href="index.php"> Home Page</a></li>
+	<li class="list-inline-item"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+	<li class="list-inline-item"><a href="index.php?module=<?php echo $module; ?>">Fitness Clubs</a></li>
+	<li class="list-inline-item"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+	<li class="list-inline-item"><?php if(!empty($id)) echo "Edit Fitness Club"; else echo "Add Fitness Club"; ?></li>
 </ul>
 <div class="float-clear"></div>
 <div id="formContainer">
 	<?php if($formErrors != null) { ?>
 		<div class="errorBox">
-			Fill in all required fields in right format:
-			<?php
-				echo $formErrors;
-			?>
-		</div>
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+				<strong>Fill in all required fields in right format:</strong>
+				<?php
+					echo $formErrors;
+				?>
+			</div>
 	<?php } ?>
 	<form action="" method="post">
 		<fieldset>
-			<legend>Fitness Clubs information</legend>
-			<p>
-				<label class="field" for="name">Name<?php echo in_array('name', $required) ? '<span> *</span>' : ''; ?></label>
-				<input type="text" id="name" name="name" class="textbox-255" value="<?php echo isset($fields['name']) ? $fields['name'] : ''; ?>">
-			</p>
-			<p>
-				<label class="field" for="features">Features<?php echo in_array('features', $required) ? '<span> *</span>' : ''; ?></label>
-				<input type="text" id="features" name="features" class="textbox-255" value="<?php echo isset($fields['features']) ? $fields['features'] : ''; ?>">
-			</p>
+			<legend class="bg-info" align="center">Fitness Clubs information</legend>
+			<div class="col-10" style="margin: 0 auto;">
+			<div class="form-group">
+					<label class="field" for="name">Name<?php echo in_array('name', $required) ? '<span> *</span>' : ''; ?></label>
+					<div class="col-10">
+						<input type="text" id="name" name="name" class="form-control" placeholder="Enter fitness club name" value="<?php echo isset($fields['name']) ? $fields['name'] : ''; ?>">
+					</div>
+					<label class="field" for="features">Features<?php echo in_array('features', $required) ? '<span> *</span>' : ''; ?></label>
+					<div class="col-10">
+						<input type="text" id="features" name="features" placeholder="Enter fitness club features" class="form-control" value="<?php echo isset($fields['features']) ? $fields['features'] : ''; ?>">
+					</div>
+			</div>
+		</div>
 		</fieldset>
 		<fieldset>
-			<legend>Adresas</legend>
-			<p>
-				<label class="field" for="house_number">House number<?php echo in_array('house_number', $required) ? '<span> *</span>' : ''; ?></label>
-				<input type="text" id="house_number" name="house_number" class="textbox-255" value="<?php echo isset($fieldsA['house_number']) ? $fieldsA['house_number'] : ''; ?>">
-			</p>
-			<p>
-				<label class="field" for="street">Street<?php echo in_array('street', $required) ? '<span> *</span>' : ''; ?></label>
-				<input type="text" id="street" name="street" class="textbox-255" value="<?php echo isset($fieldsA['street']) ? $fieldsA['street'] : ''; ?>">
-			</p>
-			<p>
-				<label class="field" for="post_code">Post code<?php echo in_array('post_code', $required) ? '<span> *</span>' : ''; ?></label>
-				<input type="text" id="post_code" name="post_code" class="textbox-255" value="<?php echo isset($fieldsA['post_code']) ? $fieldsA['post_code'] : ''; ?>">
-				<?php if(key_exists('post_code', $maxLengths)) echo "<span class='max-len'>(max {$maxLengths['post_code']} symb.)</span>"; ?>
-			</p>
+				<legend class="bg-info" align="center">Address</legend>
+				<div class="col-10" style="margin: 0 auto;">
+				<div class="form-group">
+					<label class="field" for="house_number">House number<?php echo in_array('house_number', $required) ? '<span> *</span>' : ''; ?></label>
+					<div class="col-10">
+						<input type="text" id="house_number" name="house_number" class="form-control" placeholder="Enter house number" value="<?php echo isset($fieldsA['house_number']) ? $fieldsA['house_number'] : ''; ?>">
+					</div>
+					<label class="field" for="street">Street<?php echo in_array('street', $required) ? '<span> *</span>' : ''; ?></label>
+					<div class="col-10">
+							<input type="text" id="street" name="street" class="form-control" placeholder="Enter street name" value="<?php echo isset($fieldsA['street']) ? $fieldsA['street'] : ''; ?>">
+					</div>
+						<label class="field" for="post_code">Post code<?php echo in_array('post_code', $required) ? '<span> *</span>' : ''; ?></label>
+					<div class="col-10">
+						<input type="number" id="post_code" name="post_code" placeholder="Enter post code" class="form-control"value="<?php echo isset($fieldsA['post_code']) ? $fieldsA['post_code'] : ''; ?>">
+						<small id="nameHelp" class="form-text text-muted"><?php if(key_exists('post_code', $maxLengths)) echo "<span class='max-len'>(max {$maxLengths['post_code']} symb.)</span>"; ?></small>
+					</div>
+				</div>
+				</div>
 		</fieldset>
 		<fieldset>
-			<legend>City</legend>
-			<p>
+			<legend class="bg-info" align="center">City</legend>
+			<div class="col-10" style="margin: 0 auto;">
+			<div class="form-group">
 				<label class="field" for="fk_city_id">City<?php echo in_array('fk_city_id', $required) ? '<span> *</span>' : ''; ?></label>
-				<select id="fk_city_id" name="fk_city_id">
-					<option value="-1">Choose a City</option>
-					<?php
-						// electing all Cities
-						$citys = $cityObj->getCityList();
-						foreach($citys as $key => $val) {
-							$selected = "";
-							if(isset($fieldsA['fk_city_id']) && $fieldsA['fk_city_id'] == $val['id_city']) {
-								$selected = " selected='selected'";
+				<div class="col-10">
+					<select class="form-control" id="fk_city_id" name="fk_city_id">
+						<option value="-1">Choose a City</option>
+						<?php
+							// electing all Cities
+							$citys = $cityObj->getCityList();
+							foreach($citys as $key => $val) {
+								$selected = "";
+								if(isset($fieldsA['fk_city_id']) && $fieldsA['fk_city_id'] == $val['id_city']) {
+									$selected = " selected='selected'";
+								}
+								echo "<option{$selected} value='{$val['id_city']}'>{$val['city']}</option>";
 							}
-							echo "<option{$selected} value='{$val['id_city']}'>{$val['city']}</option>";
-						}
-					?>
-				</select>
-			</p>
+						?>
+					</select>
+				</div>
+			</div>
+			</div>
 		</fieldset>
 		<fieldset>
-			<legend>Working hours</legend>
-
+			<legend class="bg-info" align="center">Working Hours</legend>
+			<div class="col-10" style="margin: 0 auto;">
 			<div class="childRowContainer">
-				<div class="labelLeft<?php if(empty($hoursFields) || sizeof($hoursFields) == 0) echo ' hidden'; ?>">Weekday</div>
-				<div class="labelLeft<?php if(empty($hoursFields) || sizeof($hoursFields) == 0) echo ' hidden'; ?>">Open from</div>
-				<div class="float-clear"></div>
-				<div class="labelLeft<?php if(empty($hoursFields) || sizeof($hoursFields) == 0) echo ' hidden'; ?>">- till</div>
-				<div class="float-clear"></div>
+				<div class="row col-10">
+					<div class="col-4<?php if(empty($hoursFields) || sizeof($hoursFields) == 0) echo ' hidden'; ?>">Weekday</div>
+					<div class="col-3<?php if(empty($hoursFields) || sizeof($hoursFields) == 0) echo ' hidden'; ?>">Open from</div>
+					<div class="col-3<?php if(empty($hoursFields) || sizeof($hoursFields) == 0) echo ' hidden'; ?>">Open till</div>
+				</div>
 				<?php
 					if(empty($hoursFields) || sizeof($hoursFields) == 0) {
 				?>
 
-					<div class="childRow hidden">
-						<input type="text" name="NewTime[weekday][]" value="" class="textbox-100" disabled="disabled" />
-						<input type="text" name="NewTime[from][]" value="" class="textbox-100" disabled="disabled" />
-						<input type="text" name="NewTime[till][]" value="" class="textbox-100" disabled="disabled" />
+					<div class="childRow row col-10 hidden">
+						<input type="text" class="col-4 form-control" name="NewTime[weekday][]" value="" class="textbox-100" disabled="disabled" />
+						<input type="text" class="col-3 form-control" name="NewTime[from][]" value="" class="textbox-100" disabled="disabled" />
+						<input type="text" class="col-3 form-control" name="NewTime[till][]" value="" class="textbox-100" disabled="disabled" />
 						<input type="hidden" class="isDisabledForEditing" name="neaktyvus[]" value="0" />
 
 					</div>
@@ -196,11 +214,11 @@
 						foreach($hoursFields as $key => $val) {
 
 				?>
-                                    <div class="childRow">
-                                        <input type="text" name="NewTime[weekday][]" value="<?php echo $val['weekday']; ?>" class="textbox-100" disabled/>
-                                        <input type="text" name="NewTime[from][]" value="<?php echo $val['from']; ?>" class="textbox-100" disabled/>
-                                        <input type="text" name="NewTime[till][]" value="<?php echo $val['till']; ?>" class="textbox-100" disabled/>
-                                        <a href="<?php echo "index.php?module={$module}&id={$id}&sid={$val['id_working_hours']}&action=remove"; ?>" class="removeChild">delete</a>
+                                    <div class="childRow row col-10">
+                                        <input type="text" class="col-4 form-control" name="NewTime[weekday][]" value="<?php echo $val['weekday']; ?>" class="textbox-100" disabled/>
+                                        <input type="text" class="col-3 form-control" name="NewTime[from][]" value="<?php echo $val['from']; ?>" class="textbox-100" disabled/>
+                                        <input type="text" class="col-3 form-control" name="NewTime[till][]" value="<?php echo $val['till']; ?>" class="textbox-100" disabled/>
+                                        <a href="<?php echo "index.php?module={$module}&id={$id}&sid={$val['id_working_hours']}&action=remove"; ?>" class="btn btn-danger removeChild">delete</a>
                                     </div>
                                     <div class="float-clear"></div>
 				<?php
@@ -208,14 +226,16 @@
 					}
 				?>
 			</div>
-			<p id="newItemButtonContainer">
-				<a href="#" title="" class="addChild">Add</a>
-			</p>
+			<div class="col-10" id="newItemButtonContainer">
+				<a href="#" title="" class="btn btn-success addChild">Add</a>
+			</div>
 		</fieldset>
-		<p class="required-note">* please, fill in all the blanks</p>
-		<p>
-			<input type="submit" class="submit" name="submit" value="Save">
-		</p>
+		</br>
+		<div class="form-group">
+			<div class="col-10">
+				<input type="submit" class="btn btn-primary" name="submit" value="Save"><small class="text-muted">* please, fill in all the blanks</small>
+			</div>
+		</div>
 		<?php if(isset($fields['id_fitness_club'])) { ?>
 			<input type="hidden" name="id_fitness_club" value="<?php echo $fields['id_fitness_club']; ?>" />
 		<?php } ?>
@@ -227,4 +247,5 @@
 		<?php } ?>
 
 	</form>
+</div>
 </div>

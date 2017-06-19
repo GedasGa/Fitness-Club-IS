@@ -136,10 +136,10 @@ class gyms {
 	 * @return type
 	 */
 	public function getEmployeesCountOfGym($id) {
-		$query = "  SELECT COUNT(`DARBUOTOJAS`.`asmens_kodas`) AS `count`
+		$query = "  SELECT COUNT(`EMPLOYEE`.`personal_id`) AS `count`
 					FROM `FITNESS_CLUB`
-						INNER JOIN `DARBUOTOJAS`
-							ON `FITNESS_CLUB`.`id_fitness_club`=`DARBUOTOJAS`.`fk_fitness_club_id`
+						INNER JOIN `EMPLOYEE`
+							ON `FITNESS_CLUB`.`id_fitness_club`=`EMPLOYEE`.`fk_fitness_club_id`
 					WHERE `FITNESS_CLUB`.`id_fitness_club`='{$id}'";
 		$data = mysql::select($query);
 

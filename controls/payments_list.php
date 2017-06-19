@@ -17,56 +17,63 @@
 		die();
 	}
 ?>
-<ul id="pagePath">
-	<li><a href="index.php">Home Page</a></li>
-	<li>Payments</li>
-</ul>
-<div id="actions">
-	<a href="report.php?id=2" target="_blank">Invoices report</a>
-	<a href='index.php?module=<?php echo $module; ?>&action=new'>Add invoice</a>
+<div class="row">
+	<ul class="list-inline">
+		<li class="list-inline-item"><i class="fa fa-home" aria-hidden="true"></i><a href="index.php"> Home Page</a></li>
+		<li class="list-inline-item"><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+		<li class="list-inline-item">Payments</li>
+	</ul>
 </div>
+<ul class="list-inline text-right">
+	<li class="list-inline-item"><a class="btn btn-info btn-sm" href="report.php?id=1" target="_blank"><i class="fa fa-list-alt" aria-hidden="true"></i> Invoices report</a></li>
+	<li class="list-inline-item"><a class="btn btn-success btn-sm" href='index.php?module=<?php echo $module; ?>&action=new'><i class="fa fa-plus-circle" aria-hidden="true"></i> Add invoice</a></li>
+</ul>
 <div class="float-clear"></div>
 
-<table>
-	<tr>
-		<th>ID</th>
-		<th>Date</th>
-		<th>Amount</th>
-		<th>Payed</th>
-		<th>Employee</th>
-		<th>Customer</th>
-		<th>Subscription</th>
-		<th></th>
-	</tr>
-	<?php
-		// counting sum of records
-		$elementCount = $paymentsObj->getPaymentListCount();
+<div class="container-fluid">
+	<table class="table table-bordered table-striped table-hover">
+		<thead class="thead-inverse">
+			<tr>
+				<th>ID</th>
+				<th>Date</th>
+				<th>Amount</th>
+				<th>Payed</th>
+				<th>Employee</th>
+				<th>Customer</th>
+				<th>Subscription</th>
+				<th style="text-align: center;">Delete/Edit</th>
+			</tr>
+		</thead>
+		<?php
+			// counting sum of records
+			$elementCount = $paymentsObj->getPaymentListCount();
 
-		// generating list pages
-		$paging->process($elementCount, $pageId);
+			// generating list pages
+			$paging->process($elementCount, $pageId);
 
-		// electing selected page Payment
-		$data = $paymentsObj->getPaymentList($paging->size, $paging->first);
+			// electing selected page Payment
+			$data = $paymentsObj->getPaymentList($paging->size, $paging->first);
 
-		// generating table
-		foreach($data as $key => $val) {
-			echo
-				"<tr>"
-					. "<td>{$val['number']}</td>"
-					. "<td>{$val['invoice_date']}</td>"
-					. "<td>{$val['invoice_amount']}</td>"
-					. "<td>{$val['payment_amount']}</td>"
-					. "<td>{$val['employee_name']} {$val['employee_surname']}</td>"
-					. "<td>{$val['customer_name']} {$val['customer_surname']}</td>"
-					. "<td>{$val['subscription']}</td>"
-					. "<td>"
-						. "<a href='#' onclick='showConfirmDialog(\"{$module}\", \"{$val['number']}\"); return false;' title=''>delete</a>&nbsp;"
-						. "<a href='index.php?module={$module}&id={$val['number']}' title=''>edit</a>"
-					. "</td>"
-				. "</tr>";
-		}
-	?>
-</table>
+			// generating table
+			foreach($data as $key => $val) {
+				echo
+					"<tr>"
+						. "<td>{$val['number']}</td>"
+						. "<td>{$val['invoice_date']}</td>"
+						. "<td>{$val['invoice_amount']}</td>"
+						. "<td>{$val['payment_amount']}</td>"
+						. "<td>{$val['employee_name']} {$val['employee_surname']}</td>"
+						. "<td>{$val['customer_name']} {$val['customer_surname']}</td>"
+						. "<td>{$val['subscription']}</td>"
+						. "<td style='text-align: center;' >"
+							. "<a class='btn btn-danger btn-sm' href='#' onclick='showConfirmDialog(\"{$module}\", \"{$val['number']}\"); return false;' title=''><i class='fa fa-trash' aria-hidden='true'></i></a>&nbsp;"
+							. "<a class='btn btn-warning btn-sm' href='index.php?module={$module}&id={$val['number']}' title=''><i class='fa fa-pencil' aria-hidden='true'></i></a>"
+						. "</td>"
+					. "</tr>";
+			}
+		?>
+	</table>
+</div>
 <?php
 //including pages template
 	include 'controls/paging.php';
