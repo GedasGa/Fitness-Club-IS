@@ -63,7 +63,6 @@
       <nav class="navbar navbar-inverse bg-inverse rounded navbar-toggleable-md">
 					<img src="utils/gym-logo.png" alt="Gym Logo" style="width:45px;">
         	<a class="navbar-brand text-warning" href="index.php">Fitness Clubs IS</a>
-
         <div class="collapse navbar-collapse" id="containerNavbar">
           <ul class="navbar-nav mr-auto">
 						<li class="nav-item">
@@ -112,6 +111,7 @@
 						</ul>
         </div>
       </nav>
+
       <div class="jumbotron">
         <div class="col-sm-12 mr-auto">
 					<div id="contentMain">
@@ -149,7 +149,7 @@
 		integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-		<!--JavaScript for Adding childs and confirmation  -->
+		<!--JavaScript for Adding child rows and confirmation messages -->
 		<script src="scripts/main.js"></script>
 	</body>
 </html>

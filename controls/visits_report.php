@@ -1,3 +1,19 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="../../favicon.ico">
+
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+		integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="utils/style/navbar.css" rel="stylesheet">
+	</head>
 <?php
 
 	include 'libraries/visits.class.php';
@@ -38,8 +54,7 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 				<div class="jumbotron">
 					  <div class="col-sm-12 mr-auto">
 							<ul class="list-inline text-right">
-								<li class="list-inline-item"><a href="report.php?id=1" title="New report" class="newReport btn btn-info btn-sm">
-									<i class="fa fa-list-alt" aria-hidden="true"></i> New report</a><li>
+								<li class="list-inline-item"><a href="report.php?id=1" title="New report" class="newReport btn btn-info btn-sm"><i class="fa fa-list-alt" aria-hidden="true"></i> New report</a><li>
 							</ul>
 							<ul class="list-group" id="reportInfo" style="text-align:center;">
 								<li class="list-group-item bg-inverse text-white" style="display: inline-block;">Visits Report</li>
@@ -115,7 +130,6 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 							// electing all Visits
 							$visitsReportData = $visitsObj->getVisitsReport($data['dateFrom'], $data['dateTill']);
 							$visitsReportCount = $visitsObj->getCountOfVisitsReport($data['dateFrom'], $data['dateTill']);
-
 							if(sizeof($visitsReportData) > 0) { ?>
 								<table class="table table-bordered table-striped table-hover">
 									<thead class="thead-inverse">
@@ -139,7 +153,6 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 												. "</tr>";
 										}
 									?>
-
 									<tr class="rowSeparator">
 									<td colspan="5"></td>
 									</tr>
