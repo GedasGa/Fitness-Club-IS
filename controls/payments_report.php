@@ -148,7 +148,7 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 												foreach($AccountReportData as $key => $val) {
 
 													if($val['payments'] != "payed") {
-													$val['payments'] .= " &euro;";
+														$val['payments'];
 													}
 
 													echo
@@ -156,8 +156,8 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 																. "<td>#{$val['number']}, {$val['invoice_date']}</td>"
 																. "<td>{$val['employee_name']} {$val['employee_surname']}</td>"
 																. "<td>{$val['customer_name']} {$val['customer_surname']}</td>"
-																. "<td>{$val['invoice_amount']} &euro;</td>"
-																. "<td>{$val['payments']}</td>"
+																. "<td>&dollar;{$val['invoice_amount']}</td>"
+																. "<td>&dollar;{$val['payments']}</td>"
 															. "</tr>";
 												}
 											?>
@@ -168,13 +168,13 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 
 											<tr class="aggregate bg-success">
 											<td class="label" colspan="3">Total price (amount payed):</td>
-											<td class="border"><?php echo $AccountSumData[0]['invoices_amount']; ?> &euro;</td>
-											<td class="border">
+											<td class="border">&dollar;<?php echo $AccountSumData[0]['invoices_amount']; ?></td>
+											<td class="border">&dollar;
 												<?php
 													if($AccountSumData[0]['payments_amount'] == 0) {
 														$AccountSumData[0]['payments_amount'] = "not payed";
 													} else {
-														$AccountSumData[0]['payments_amount'] .= " &euro;";
+														$AccountSumData[0]['payments_amount'];
 													}
 
 													echo $AccountSumData[0]['payments_amount'];

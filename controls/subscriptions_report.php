@@ -160,14 +160,14 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 													. "<td>#{$subscriptionData[$i]['id_subscription']}, {$subscriptionData[$i]['valid_from']}</td>"
 													. "<td>{$subscriptionData[$i]['valid_from']} - {$subscriptionData[$i]['valid_till']}</td>"
 													. "<td>{$subscriptionData[$i]['type']}</td>"
-													. "<td>{$subscriptionData[$i]['price']} &euro;</td>"
+													. "<td>&dollar;{$subscriptionData[$i]['price']}</td>"
 												."</tr>";
 
 											if($i == (sizeof($subscriptionData) - 1) || $subscriptionData[$i]['personal_id'] != $subscriptionData[$i+1]['personal_id']) {
 												echo
 													"<tr class='aggregate'>"
 														. "<td colspan='3'></td>"
-														. "<td class='border bg-warning'>{$subscriptionData[$i]['total_customer_subscriptions_price']} &euro;</td>"
+														. "<td class='border bg-warning'>&dollar;{$subscriptionData[$i]['total_customer_subscriptions_price']}</td>"
 													. "</tr>";
 											}
 
@@ -184,7 +184,7 @@ if($formSubmitted == true && ($formErrors == null)) { ?>
 
 									<tr class="aggregate bg-success">
 										<td class="label" colspan="3">Amount:</td>
-										<td class="border"><?php echo $totalSubscriptionsPrice[0]['total_amount']; ?> &euro;</td>
+										<td class="border">&dollar;<?php echo $totalSubscriptionsPrice[0]['total_amount']; ?></td>
 									</tr>
 								</table>
 						<?php   } else { ?>

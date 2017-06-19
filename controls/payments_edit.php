@@ -201,7 +201,7 @@
 								if(isset($fieldsA['fk_subscription_id']) && $fieldsA['fk_subscription_id'] == $val['id_subscription']) {
 									$selected = " selected='selected'";
 								}
-								echo "<option{$selected} value='{$val['id_subscription']}'> ID-{$val['id_subscription']} / {$val['price']} eu</option>";
+								echo "<option{$selected} value='{$val['id_subscription']}'> ID-{$val['id_subscription']} / {$val['price']} $</option>";
 							}
 						?>
 					</select>

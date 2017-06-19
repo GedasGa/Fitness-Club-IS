@@ -78,7 +78,7 @@
 						. "<td>{$val['id_fitness_club']}</td>"
 						. "<td>{$val['name']}</td>"
 						. "<td>{$val['features']}</td>"
-						. "<td>{$val['house_number']} {$val['street']}</td>"
+						. "<td>{$val['house_number']}, {$val['street']}</td>"
 						. "<td>{$val['city']}</td>"
 						. "<td>{$val['post_code']}</td>"
 						. "<td style='text-align: center;'>"
